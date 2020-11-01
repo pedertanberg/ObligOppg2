@@ -41,7 +41,8 @@ const styles = StyleSheet.create({
 export default class MyReservations extends React.Component {
     state = {
         booking: {},
-        activity: {}
+
+
     };
 
     //Setter opp ref mot database og verdi der skal hentes.
@@ -53,6 +54,8 @@ export default class MyReservations extends React.Component {
                 this.setState({ booking: snapshot.val() });
 
             });
+        this.LoadActivity()
+
     }
 
     LoadActivity() {
@@ -73,7 +76,7 @@ export default class MyReservations extends React.Component {
 
     render() {
         const { booking } = this.state;
-        const { activity } = this.state;
+
 
 
         // Vi viser ingenting hvis der ikke er data
@@ -92,7 +95,7 @@ export default class MyReservations extends React.Component {
                 source={require("./Login/luke-chesser-3rWagdKBF7U-unsplash.jpg")}
             >
 
-                <View>
+                <View style={{ height: "90%" }}>
                     <HeaderX
                         icon2Family="Feather"
                         icon2Name="search"
@@ -115,29 +118,12 @@ export default class MyReservations extends React.Component {
                             />
                         )}
                     />
-                    <View>
-                        <View>
-                            <Text style={styles.text}>Reservation you are hosting</Text>
-                        </View>
-                    </View>
+
                 </View>
-                <FlatList
-                    data={ActivityArray}
-                    // Vi bruger ActivityKeys til at finde ID på den aktuelle bil og returnerer dette som key, og giver det med som ID til ActivityListItem
-                    keyExtractor={(item, index) => ActivityKeys[index]}
-                    renderItem={({ item, index }) => (
-                        <MyReservationsItem
-                            booking={item}
-                            id={ActivityKeys[index]}
-                            onSelect={this.handleSelectActivity}
-                        />
-                    )}
-                />
+
 
             </ImageBackground>
         );
     }
 
 }
-
-

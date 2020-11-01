@@ -1,4 +1,3 @@
-
 import * as React from 'react';
 import { View, Text, Platform, ImageBackground, TouchableHighlight, FlatList, StyleSheet, Modal, Button, Alert } from 'react-native';
 import firebase from 'firebase';

@@ -88,7 +88,7 @@ export default class ActivityList extends React.Component {
         source={require("../Login//luke-chesser-3rWagdKBF7U-unsplash.jpg")}
       >
 
-        <View>
+        <View style={{ height: "90%" }}>
           <HeaderX
             icon2Family="Feather"
             icon2Name="search"

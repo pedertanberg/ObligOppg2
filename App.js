@@ -20,6 +20,13 @@ import SellerProfile from "./Components/SellerProfile"
 import MyReservations from "./Components/MyReservations";
 import MyReservationsDetails from "./Components/MyReservationDetails";
 import IoniconsIcon from "react-native-vector-icons/Ionicons";
+import EditReservation from "./Components/EditReservation";
+import MyListings from "./Components/Listings/MyListings";
+import MyListingDetails from "./Components/Listings/MyListingDetails";
+import EditListing from "./Components/Listings/EditListing"
+
+
+
 
 
 
@@ -28,9 +35,14 @@ const StackNavigator = createStackNavigator(
     ActivityList: { screen: ActivityList },
     ActivityDetails: { screen: ActivityDetails },
     EditActivity: { screen: EditActivity },
+    EditReservation: { screen: EditReservation },
     ProfileScreen: { screen: Profile },
     SellerProfile: { screen: SellerProfile },
     MyReservationsDetails: { screen: MyReservationsDetails },
+    MyReservations: { screen: MyReservations },
+    MyListingDetails: { screen: MyListingDetails },
+    MyListings: { screen: MyListings },
+    EditListing: { screen: EditListing }
   },
   { initialRouteKey: "Activity List" }
 );
@@ -65,6 +77,18 @@ const MyDrawerNavigator = createDrawerNavigator({
     screen: MyReservations,
     navigationOptions: {
       title: "Handle your bookings",
+      drawerIcon: () => (
+        <IoniconsIcon
+          name="md-albums"
+          style={styles.icon2}
+        ></IoniconsIcon>
+      )
+    }
+  },
+  MyListings: {
+    screen: MyReservations,
+    navigationOptions: {
+      title: "Handle your listings",
       drawerIcon: () => (
         <IoniconsIcon
           name="md-albums"

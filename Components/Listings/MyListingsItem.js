@@ -5,6 +5,7 @@ import {
   FlatList,
   StyleSheet,
   TouchableOpacity,
+  Image
 
 } from "react-native";
 
@@ -14,16 +15,22 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     margin: 5,
     padding: 5,
-    height: 50,
+    height: 200,
     justifyContent: "center",
     backgroundColor: "#21164e",
   },
 
+  rect2: {
+    flex: 1,
+    width: "100%"
+  },
+  rect2_imageStyle: {},
 
-  label: { fontWeight: "bold", color: "white" },
+
+  label: { fontWeight: "bold", color: "white", textAlign: "center" },
 });
 
-export default class MyReservationsItem extends React.Component {
+export default class ActivityListItem extends React.Component {
   handlePress = () => {
     // Her pakker vi ting ud fra props
     const { id, onSelect } = this.props;
@@ -35,8 +42,9 @@ export default class MyReservationsItem extends React.Component {
     const { activity } = this.props;
     return (
       <TouchableOpacity style={styles.container} onPress={this.handlePress}>
+        <Image source={require('../Activities/Images/food.png')} style={styles.rect2} />
         <Text style={styles.label}>
-          {activity.bookingID}$ - {activity.kunde} -  {activity.selger}-  {activity.tid}
+          {activity.header} {'\n'}{activity.price}
         </Text>
       </TouchableOpacity>
     );

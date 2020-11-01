@@ -97,13 +97,13 @@ const styles = StyleSheet.create({
 });
 
 export default class MyReservationsDetails extends React.Component {
-  state = { activity: null, modalVisible: false };
+  state = { activities: null, modalVisible: false };
 
   componentDidMount() {
     // Vi udlæser ID fra navgation parametre og loader bilen når komponenten starter
     const id = this.props.navigation.getParam('id');
     this.LoadActivity(id);
-    this.LoadBooking(id);
+
 
 
   }
@@ -111,22 +111,14 @@ export default class MyReservationsDetails extends React.Component {
     this.setState({ modalVisible: visible });
   }
 
-  LoadBooking = id => {
-    firebase
-      .database()
-      // ID fra funktionens argument sættes ind i stien vi læser fra
-      .ref('/booking/' + id)
-      .on('value', asds => {
-        this.setState({ booking: asds.val() });
-      });
-  };
+
   LoadActivity = id => {
     firebase
       .database()
       // ID fra funktionens argument sættes ind i stien vi læser fra
-      .ref('/booking/' + id + '/activity')
+      .ref('/activit/' + id)
       .on('value', asds => {
-        this.setState({ activity: asds.val() });
+        this.setState({ activities: asds.val() });
       });
   };
 
@@ -134,7 +126,7 @@ export default class MyReservationsDetails extends React.Component {
     // Vi navigerer videre til EditActivity skærmen og sender ID med
     const { navigation } = this.props;
     const id = navigation.getParam('id');
-    navigation.navigate('EditReservation', { id });
+    navigation.navigate('EditListing', { id });
   };
 
   confirmDelete = () => {
@@ -161,7 +153,7 @@ export default class MyReservationsDetails extends React.Component {
       firebase
         .database()
         // Vi sætter aktivitetens ID ind i stien
-        .ref(`/booking/${id}`)
+        .ref(`/activit/${id}`)
         // Og fjerner data fra den sti
         .remove();
       // Og går tilbage når det er udført
@@ -173,11 +165,10 @@ export default class MyReservationsDetails extends React.Component {
   };
 
   render() {
-    const { activity } = this.state;
-    const { booking } = this.state;
+    const { activities } = this.state;
     const { modalVisible } = this.state;
 
-    if (!activity) {
+    if (!activities) {
       return <Text>No data</Text>;
     }
     return (
@@ -190,7 +181,7 @@ export default class MyReservationsDetails extends React.Component {
         <ImageBackground
           style={styles.rect2}
           imageStyle={styles.rect2_imageStyle}
-          source={require("./Login/luke-chesser-3rWagdKBF7U-unsplash.jpg")}
+          source={require("../Login/luke-chesser-3rWagdKBF7U-unsplash.jpg")}
         >
           <ScrollView>
             <View style={styles.row}>
@@ -198,32 +189,32 @@ export default class MyReservationsDetails extends React.Component {
                 name="ios-eye"
                 style={styles.icon2}
               ></IoniconsIcon>
-              <Text style={styles.label}>Aktivitets ID</Text>
-              <Text style={styles.value}>{booking.id}</Text>
+              <Text style={styles.label}>Category</Text>
+              <Text style={styles.value}>{activities.activity}</Text>
             </View>
             <View style={styles.row}>
               <IoniconsIcon
                 name="ios-person"
                 style={styles.icon2}
               ></IoniconsIcon>
-              <Text style={styles.label}>Kunde</Text>
-              <Text style={styles.value}>{booking.kunde}</Text>
+              <Text style={styles.label}>Availability</Text>
+              <Text style={styles.value}>{activities.availability}</Text>
             </View>
             <View style={styles.row}>
               <IoniconsIcon
                 name="md-person"
                 style={styles.icon2}
               ></IoniconsIcon>
-              <Text style={styles.label}>Selger</Text>
-              <Text style={styles.value}>{booking.selger}</Text>
+              <Text style={styles.label}>City</Text>
+              <Text style={styles.value}>{activities.city}</Text>
             </View>
             <View style={styles.row}>
               <IoniconsIcon
                 name="md-calendar"
                 style={styles.icon2}
               ></IoniconsIcon>
-              <Text style={styles.label}>Tid</Text>
-              <Text style={styles.value}>{booking.tid}</Text>
+              <Text style={styles.label}>Description</Text>
+              <Text style={styles.value}>{activities.description}</Text>
             </View>
 
             <View style={styles.row}>
@@ -231,61 +222,28 @@ export default class MyReservationsDetails extends React.Component {
                 name="ios-tennisball"
                 style={styles.icon2}
               ></IoniconsIcon>
-              <Text style={styles.label}>Aktivitet</Text>
-              <Text style={styles.value}>{activity.activity}</Text>
+              <Text style={styles.label}>Header</Text>
+              <Text style={styles.value}>{activities.header}</Text>
             </View>
             <View style={styles.row}>
               <IoniconsIcon
                 name="md-text"
                 style={styles.icon2}
               ></IoniconsIcon>
-              <Text style={styles.label}>Description</Text>
-              <Text style={styles.value}>{activity.description}</Text>
+              <Text style={styles.label}>Price</Text>
+              <Text style={styles.value}>{activities.price}</Text>
             </View>
             <View style={styles.row}>
               <IoniconsIcon
                 name="ios-card"
                 style={styles.icon2}
               ></IoniconsIcon>
-              <Text style={styles.label}>Price</Text>
-              <Text style={styles.value}>{activity.price}</Text>
+              <Text style={styles.label}>Seller</Text>
+              <Text style={styles.value}>{activities.seller}</Text>
             </View>
             <Button title="Edit" onPress={this.handleEdit} style={{ ...styles.openButton, backgroundColor: "" }} />
             <Button title="Delete" onPress={this.confirmDelete} />
-            <View style={styles.centeredView}>
-              <Modal
-                animationType="slide"
-                transparent={true}
-                visible={modalVisible}
-                onRequestClose={() => {
-                  Alert.alert("Modal has been closed.");
-                }}
-              >
-                <View style={styles.centeredView}>
-                  <View style={styles.modalView}>
-                    <SellerProfile />
 
-                    <TouchableHighlight
-                      style={{ ...styles.openButton, backgroundColor: "#2196F3" }}
-                      onPress={() => {
-                        this.setModalVisible(!modalVisible);
-                      }}
-                    >
-                      <Text style={styles.textStyle}>Hide Seller Profile</Text>
-                    </TouchableHighlight>
-                  </View>
-                </View>
-              </Modal>
-
-              <TouchableHighlight
-                style={styles.openButton}
-                onPress={() => {
-                  this.setModalVisible(true);
-                }}
-              >
-                <Text style={styles.textStyle}>Show Seller Profile</Text>
-              </TouchableHighlight>
-            </View>
           </ScrollView>
         </ImageBackground>
       </View>
