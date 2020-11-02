@@ -1,13 +1,14 @@
 
 import * as React from 'react';
-import { View, Text, Platform, ImageBackground, TouchableHighlight, FlatList, StyleSheet, Modal, Button, Alert } from 'react-native';
+import { View, Text, Platform, ImageBackground, Image, TouchableHighlight, FlatList, StyleSheet, Modal, Button, Alert } from 'react-native';
 import firebase from 'firebase';
 import { YellowBox } from 'react-native';
 import _ from 'lodash';
 import HeaderX from "../Activities/HeaderX";
 import IoniconsIcon from "react-native-vector-icons/Ionicons";
 import { ScrollView } from 'react-native-gesture-handler';
-import SellerProfile from "../SellerProfile"
+import SellerProfile from "../SellerProfile";
+
 
 
 YellowBox.ignoreWarnings(['Setting a timer']);
@@ -184,6 +185,14 @@ export default class MyReservationsDetails extends React.Component {
           source={require("../Login/luke-chesser-3rWagdKBF7U-unsplash.jpg")}
         >
           <ScrollView>
+            <View style={styles.row}>
+              <IoniconsIcon
+                name="ios-image"
+                style={styles.icon2}
+              ></IoniconsIcon>
+
+              <Image source={{ uri: activities.image }} style={styles.rect2} />
+            </View>
             <View style={styles.row}>
               <IoniconsIcon
                 name="ios-eye"

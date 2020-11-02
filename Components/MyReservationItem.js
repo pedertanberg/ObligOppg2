@@ -44,7 +44,7 @@ export default class MyReservationsItem extends React.Component {
     return (
       <TouchableOpacity style={styles.container} onPress={this.handlePress}>
         <Text style={styles.label}>
-          <Image source={require('./Activities/Images/food.png')} style={styles.rect2} />{'\n'}
+          <Image source={{ uri: booking.image }} style={styles.rect2} />{'\n'}
           <FontAwesome5 name="id-card" style={styles.icon5} /> BookingID: {booking.id}{'\n'}
           <FontAwesome5 name="user" style={styles.icon5} /> Kunde: {booking.kunde} {'\n'}
           <FontAwesome5 name="user" style={styles.icon5} /> Selger: {booking.selger} {'\n'}

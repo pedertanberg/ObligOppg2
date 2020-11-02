@@ -43,7 +43,7 @@ export default class ActivityListItem extends React.Component {
     const { activity } = this.props;
     return (
       <TouchableOpacity style={styles.container} onPress={this.handlePress}>
-        <Image source={require('./Images/food.png')} style={styles.rect2} />
+        <Image source={{ uri: activity.image }} style={styles.rect2} />
         <Text style={styles.label}>
           {activity.header} {'\n'}{activity.price}
         </Text>
