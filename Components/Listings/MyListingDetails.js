@@ -94,7 +94,12 @@ const styles = StyleSheet.create({
   modalText: {
     marginBottom: 15,
     textAlign: "center"
-  }
+  },
+  photo: {
+    flex: 1,
+    width: "100%",
+    height: 180
+  },
 });
 
 export default class MyReservationsDetails extends React.Component {
@@ -186,12 +191,7 @@ export default class MyReservationsDetails extends React.Component {
         >
           <ScrollView>
             <View style={styles.row}>
-              <IoniconsIcon
-                name="ios-image"
-                style={styles.icon2}
-              ></IoniconsIcon>
-
-              <Image source={{ uri: activities.image }} style={styles.rect2} />
+              <Image source={{ uri: activities.image }} style={styles.photo} />
             </View>
             <View style={styles.row}>
               <IoniconsIcon

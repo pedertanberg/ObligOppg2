@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { View, Text, Platform, ImageBackground, TouchableHighlight, FlatList, StyleSheet, Modal, Button, Alert } from 'react-native';
+import { View, Text, Platform, Image, ImageBackground, TouchableHighlight, FlatList, StyleSheet, Modal, Button, Alert } from 'react-native';
 import firebase from 'firebase';
 import { YellowBox } from 'react-native';
 import _ from 'lodash';
@@ -92,7 +92,12 @@ const styles = StyleSheet.create({
   modalText: {
     marginBottom: 15,
     textAlign: "center"
-  }
+  },
+  photo: {
+    flex: 1,
+    width: "100%",
+    height: 180
+  },
 });
 
 export default class MyReservationsDetails extends React.Component {
@@ -192,6 +197,9 @@ export default class MyReservationsDetails extends React.Component {
           source={require("./Login/luke-chesser-3rWagdKBF7U-unsplash.jpg")}
         >
           <ScrollView>
+            <View style={styles.row}>
+              <Image source={{ uri: booking.image }} style={styles.photo} />
+            </View>
             <View style={styles.row}>
               <IoniconsIcon
                 name="ios-eye"

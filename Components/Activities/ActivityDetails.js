@@ -242,7 +242,7 @@ export default class ActivityDetails extends React.Component {
                 >
 
                     <View style={styles.row}>
-                        <Image source={require('./Images/food.png')} style={styles.photo} />
+                        <Image source={{ uri: activity.image }} style={styles.photo} />
                     </View>
                     <View style={styles.row}>
                         <Text style={styles.label}>Price</Text>
