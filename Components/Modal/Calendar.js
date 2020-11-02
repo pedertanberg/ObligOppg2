@@ -1,102 +1,65 @@
-import React, { Component } from "react";
-import {
-  Alert,
-  Modal,
-  StyleSheet,
-  Text,
-  TouchableHighlight,
-  View
-} from "react-native";
+import React, { useState, Fragment } from 'react';
+import { StyleSheet, View, ScrollView, Text, TouchableOpacity } from 'react-native';
+import { Calendar } from 'react-native-calendars';
+import moment from 'moment';
+import _ from 'lodash';
 
-import ProfileScreen from "../ProfileScreen";
+const testIDs = require('./testIDs');
 
-class App extends Component {
-  state = {
-    modalVisible: false
+const CalendarsScreen = () => {
+  const [selected, setSelected] = useState('');
+
+  const onDayPress = (day) => {
+    setSelected(day.dateString);
   };
 
-  setModalVisible = (visible) => {
-    this.setState({ modalVisible: visible });
-  }
 
-  render() {
-    const { modalVisible } = this.state;
+  var date = new Date().getDate(); //To get the Current Date
+  var month = new Date().getMonth() + 1; //To get the Current Month
+  var year = new Date().getFullYear(); //To get the Current Year
+
+  const renderCalendarWithSelectableDate = () => {
     return (
-      <View style={styles.centeredView}>
-        <Modal
-          animationType="slide"
-          transparent={true}
-          visible={modalVisible}
-          onRequestClose={() => {
-            Alert.alert("Modal has been closed.");
+      <Fragment>
+        <Text style={styles.text}>Select Date</Text>
+        <Calendar
+          testID={testIDs.calendars.FIRST}
+          current={'2020-11-02'}
+          style={styles.calendar}
+          hideExtraDays
+          onDayPress={onDayPress}
+          markedDates={{
+            [selected]: {
+              selected: true,
+              disableTouchEvent: true,
+              selectedColor: 'orange',
+              selectedTextColor: 'red',
+            },
           }}
-        >
-          <View style={styles.centeredView}>
-            <View style={styles.modalView}>
-              <ProfileScreen></ProfileScreen>
-
-              <TouchableHighlight
-                style={{ ...styles.openButton, backgroundColor: "#2196F3" }}
-                onPress={() => {
-                  this.setModalVisible(!modalVisible);
-                }}
-              >
-                <Text style={styles.textStyle}>Hide Modal</Text>
-              </TouchableHighlight>
-            </View>
-          </View>
-        </Modal>
-
-        <TouchableHighlight
-          style={styles.openButton}
-          onPress={() => {
-            this.setModalVisible(true);
-          }}
-        >
-          <Text style={styles.textStyle}>Show Modal</Text>
-        </TouchableHighlight>
-      </View>
+        />
+      </Fragment>
     );
-  }
-}
+  };
+
+
+  return (
+    <ScrollView showsVerticalScrollIndicator={false} testID={testIDs.calendars.CONTAINER}>
+      {renderCalendarWithSelectableDate()}
+
+    </ScrollView>
+  );
+};
+
+export default CalendarsScreen;
 
 const styles = StyleSheet.create({
-  centeredView: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    marginTop: 22
+  calendar: {
+    marginBottom: 10,
   },
-  modalView: {
-    margin: 20,
-    backgroundColor: "white",
-    borderRadius: 20,
-    padding: 35,
-    alignItems: "center",
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 2
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5
-  },
-  openButton: {
-    backgroundColor: "#F194FF",
-    borderRadius: 20,
+  text: {
+    textAlign: 'center',
     padding: 10,
-    elevation: 2
+    backgroundColor: 'lightgrey',
+    fontSize: 16,
   },
-  textStyle: {
-    color: "white",
-    fontWeight: "bold",
-    textAlign: "center"
-  },
-  modalText: {
-    marginBottom: 15,
-    textAlign: "center"
-  }
 });
-
-export default App;

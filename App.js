@@ -14,7 +14,7 @@ import ProfileScreen from "./Components/ProfileScreen";
 import Profile from "./Components/ProfileScreen";
 import Timeline from "./Components/Activities/Timeline";
 import { createDrawerNavigator } from "react-navigation-drawer";
-import Calendar from "./Components/Modal/Calendar";
+import CalendarScreen from "./Components/Modal/Calendar";
 import HomePage from "./Components/HomePage";
 import SellerProfile from "./Components/SellerProfile"
 import MyReservations from "./Components/MyReservations";
@@ -23,7 +23,8 @@ import IoniconsIcon from "react-native-vector-icons/Ionicons";
 import EditReservation from "./Components/EditReservation";
 import MyListings from "./Components/Listings/MyListings";
 import MyListingDetails from "./Components/Listings/MyListingDetails";
-import EditListing from "./Components/Listings/EditListing"
+import EditListing from "./Components/Listings/EditListing";
+
 
 
 
@@ -42,7 +43,8 @@ const StackNavigator = createStackNavigator(
     MyReservations: { screen: MyReservations },
     MyListingDetails: { screen: MyListingDetails },
     MyListings: { screen: MyListings },
-    EditListing: { screen: EditListing }
+    EditListing: { screen: EditListing },
+    CalendarScreen: { screen: CalendarScreen }
   },
   { initialRouteKey: "Activity List" }
 );
@@ -101,6 +103,18 @@ const MyDrawerNavigator = createDrawerNavigator({
     screen: ProfileScreen,
     navigationOptions: {
       title: "See your profile",
+      drawerIcon: () => (
+        <IoniconsIcon
+          name="ios-person"
+          style={styles.icon2}
+        ></IoniconsIcon>
+      )
+    }
+  },
+  CalendarScreen: {
+    screen: CalendarScreen,
+    navigationOptions: {
+      title: "See your Calendar",
       drawerIcon: () => (
         <IoniconsIcon
           name="ios-person"

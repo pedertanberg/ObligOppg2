@@ -1,12 +1,16 @@
 
-import * as React from 'react';
+import React, { useState, Fragment } from 'react';
 import { View, Text, Platform, ImageBackground, TouchableHighlight, TextInput, Modal, Image, StyleSheet, Button, Alert } from 'react-native';
 import firebase from 'firebase';
 import { YellowBox } from 'react-native';
 import _ from 'lodash';
 import HeaderX from "./HeaderX";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
-import SellerProfile from "../SellerProfile"
+import SellerProfile from "../SellerProfile";
+import { ScrollView } from 'react-native-gesture-handler';
+import Calendar from "../Modal/Calendar";
+import onDayPress from "../Modal/Calendar"
+
 
 
 
@@ -127,6 +131,7 @@ var year = new Date().getFullYear(); //To get the Current Year
 var currentbuyer = { name: "John Skjeldrum", username: "Shelldrum" }
 
 
+const testIDs = require('../Modal/testIDs');
 
 export default class ActivityDetails extends React.Component {
 
@@ -137,6 +142,10 @@ export default class ActivityDetails extends React.Component {
         const id = this.props.navigation.getParam('id');
         this.LoadActivity(id);
     }
+
+
+
+
 
 
     LoadActivity = id => {
@@ -240,84 +249,88 @@ export default class ActivityDetails extends React.Component {
                     imageStyle={styles.rect2_imageStyle}
                     source={require("../Login//luke-chesser-3rWagdKBF7U-unsplash.jpg")}
                 >
+                    <ScrollView>
 
-                    <View style={styles.row}>
-                        <Image source={{ uri: activity.image }} style={styles.photo} />
-                    </View>
-                    <View style={styles.row}>
-                        <Text style={styles.label}>Price</Text>
-                        <Text style={styles.value}>{activity.price}</Text>
-                    </View>
-                    <View style={styles.row}>
-                        <Text style={styles.label}>Activity</Text>
-                        <Text style={styles.value}>{activity.activity}</Text>
-                    </View>
-                    <View style={styles.row}>
-                        <Text style={styles.label}>Header</Text>
-                        <Text style={styles.value}>{activity.header}</Text>
-                    </View>
-                    <View style={styles.row}>
-                        <Text style={styles.label}>Description</Text>
-                        <Text style={styles.value}>{activity.description}</Text>
-                    </View>
-                    <View style={styles.row}>
-                        <Text style={styles.label}>Seller</Text>
-                        <Text style={styles.value}>{activity.seller}</Text>
-                    </View>
-                    <View style={styles.city}>
-                        <FontAwesome5
-                            name="calendar"
-                            style={styles.icon6}
-                        ></FontAwesome5>
-                        <TextInput
-                            value={tid}
-                            onChangeText={this.handleDateChange}
-                            placeholder="Date: DD-MM-YYYY"
-                            placeholderTextColor="rgba(255,255,255,1)"
-                            secureTextEntry={false}
-                            style={styles.emailInput}
-                        ></TextInput>
+                        <View style={styles.row}>
+                            <Image source={{ uri: activity.image }} style={styles.photo} />
+                        </View>
+                        <View style={styles.row}>
+                            <Text style={styles.label}>Price</Text>
+                            <Text style={styles.value}>{activity.price}</Text>
+                        </View>
+                        <View style={styles.row}>
+                            <Text style={styles.label}>Activity</Text>
+                            <Text style={styles.value}>{activity.activity}</Text>
+                        </View>
+                        <View style={styles.row}>
+                            <Text style={styles.label}>Header</Text>
+                            <Text style={styles.value}>{activity.header}</Text>
+                        </View>
+                        <View style={styles.row}>
+                            <Text style={styles.label}>Description</Text>
+                            <Text style={styles.value}>{activity.description}</Text>
+                        </View>
+                        <View style={styles.row}>
+                            <Text style={styles.label}>Seller</Text>
+                            <Text style={styles.value}>{activity.seller}</Text>
+                        </View>
+                        <View style={styles.row}>
+                            <Calendar></Calendar>
+                        </View>
+                        <View style={styles.city}>
+                            <FontAwesome5
+                                name="calendar"
+                                style={styles.icon6}
+                            ></FontAwesome5>
+                            <TextInput
+                                value={tid}
+                                onChangeText={this.handleDateChange}
+                                placeholder="Date: DD-MM-YYYY"
+                                placeholderTextColor="rgba(255,255,255,1)"
+                                secureTextEntry={false}
+                                style={styles.emailInput}
+                            ></TextInput>
 
-                    </View>
-                    <Button title="Book" color="#000" onPress={this.handleAddBooking} style={styles.button} />
-                    <View style={styles.centeredView}>
-                        <Modal
-                            animationType="slide"
-                            transparent={true}
-                            visible={modalVisible}
-                            onRequestClose={() => {
-                                Alert.alert("Modal has been closed.");
-                            }}
-                        >
-                            <View style={styles.centeredView}>
-                                <View style={styles.modalView}>
-                                    <SellerProfile />
+                        </View>
+                        <Button title="Book" color="#000" onPress={this.handleAddBooking} style={styles.button} />
+                        <View style={styles.centeredView}>
+                            <Modal
+                                animationType="slide"
+                                transparent={true}
+                                visible={modalVisible}
+                                onRequestClose={() => {
+                                    Alert.alert("Modal has been closed.");
+                                }}
+                            >
+                                <View style={styles.centeredView}>
+                                    <View style={styles.modalView}>
+                                        <SellerProfile />
 
-                                    <TouchableHighlight
-                                        style={{ ...styles.openButton, backgroundColor: "#2196F3" }}
-                                        onPress={() => {
-                                            this.setModalVisible(!modalVisible);
-                                        }}
-                                    >
-                                        <Text style={styles.textStyle}>Hide Seller Profile</Text>
-                                    </TouchableHighlight>
+                                        <TouchableHighlight
+                                            style={{ ...styles.openButton, backgroundColor: "#2196F3" }}
+                                            onPress={() => {
+                                                this.setModalVisible(!modalVisible);
+                                            }}
+                                        >
+                                            <Text style={styles.textStyle}>Hide Seller Profile</Text>
+                                        </TouchableHighlight>
+                                    </View>
                                 </View>
-                            </View>
-                        </Modal>
+                            </Modal>
 
-                        <TouchableHighlight
-                            style={styles.openButton}
-                            onPress={() => {
-                                this.setModalVisible(true);
-                            }}
-                        >
-                            <Text style={styles.textStyle}>Show Seller Profile</Text>
-                        </TouchableHighlight>
-                    </View>
-
+                            <TouchableHighlight
+                                style={styles.openButton}
+                                onPress={() => {
+                                    this.setModalVisible(true);
+                                }}
+                            >
+                                <Text style={styles.textStyle}>Show Seller Profile</Text>
+                            </TouchableHighlight>
+                        </View>
 
 
 
+                    </ScrollView>
 
                 </ImageBackground>
             </View>

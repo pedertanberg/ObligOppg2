@@ -9,7 +9,7 @@ function HeaderX(props) {
       <View style={styles.group}>
         <View style={styles.iconRow}>
           <MaterialIconsIcon
-            name="dehaze"
+            name="arrow-forward"
             style={styles.icon}
           ></MaterialIconsIcon>
           <Text style={styles.iRate}>ActivIT</Text>
@@ -19,11 +19,7 @@ function HeaderX(props) {
           onPress={() => console.log("Navigate to Settings")}
           style={styles.button}
         >
-          <FeatherIcon
-            name={props.icon2Name || "settings"}
 
-            style={styles.icon2}
-          ></FeatherIcon>
         </TouchableOpacity>
       </View>
     </View>
@@ -43,7 +39,7 @@ const styles = StyleSheet.create({
   icon: {
     color: "rgba(255,255,255,1)",
     fontSize: 25,
-    width: 18,
+    width: 30,
     height: 25,
     marginTop: 15
   },
