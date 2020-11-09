@@ -40,11 +40,13 @@ export default class MyReservationsItem extends React.Component {
 
   render() {
     const { booking } = this.props;
+    const { activity } = this.props;
+
 
     return (
       <TouchableOpacity style={styles.container} onPress={this.handlePress}>
         <Text style={styles.label}>
-          <Image source={{ uri: booking.image }} style={styles.rect2} />{'\n'}
+          <Image source={{ uri: activity.image }} style={styles.rect2} />{'\n'}
           <FontAwesome5 name="id-card" style={styles.icon5} /> BookingID: {booking.id}{'\n'}
           <FontAwesome5 name="user" style={styles.icon5} /> Kunde: {booking.kunde} {'\n'}
           <FontAwesome5 name="user" style={styles.icon5} /> Selger: {booking.selger} {'\n'}

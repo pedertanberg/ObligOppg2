@@ -1,5 +1,5 @@
 import * as React from "react";
-import { View, FlatList, StyleSheet, ImageBackground, SafeAreaView } from "react-native";
+import { View, FlatList, StyleSheet, ImageBackground, SafeAreaView, Text } from "react-native";
 import firebase from "firebase";
 import HeaderX from "../Activities/HeaderX";
 
@@ -46,7 +46,7 @@ export default class ActivityList extends React.Component {
     componentDidMount() {
         firebase
             .database()
-            .ref("/activit").orderByChild("seller").equalTo("henkebass2012")
+            .ref("/activit").orderByChild("seller").equalTo("TestUser")
             .on("value", (snapshot) => {
                 this.setState({ activities: snapshot.val() });
             });
@@ -73,7 +73,7 @@ export default class ActivityList extends React.Component {
         const { activities } = this.state;
         // Vi viser ingenting hvis der ikke er data
         if (!activities) {
-            return null;
+            return <Text>You have no listings. Please go to "Add New Activity" from the menu, to add one. </Text>;
         }
         // Flatlist forventer et array. Derfor tar vi alle values fra vårt activity objekt, og bruke som array til listen
         const ActivityArray = Object.values(activities);

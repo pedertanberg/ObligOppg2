@@ -45,7 +45,7 @@ export default class ActivityListItem extends React.Component {
       <TouchableOpacity style={styles.container} onPress={this.handlePress}>
         <Image source={{ uri: activity.image }} style={styles.rect2} />
         <Text style={styles.label}>
-          {activity.header} {'\n'}{activity.price}
+          {activity.header} {'\n'}Pr. hour: {activity.price} DKK
         </Text>
       </TouchableOpacity>
     );

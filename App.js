@@ -111,18 +111,7 @@ const MyDrawerNavigator = createDrawerNavigator({
       )
     }
   },
-  CalendarScreen: {
-    screen: CalendarScreen,
-    navigationOptions: {
-      title: "See your Calendar",
-      drawerIcon: () => (
-        <IoniconsIcon
-          name="ios-person"
-          style={styles.icon2}
-        ></IoniconsIcon>
-      )
-    }
-  },
+
 })
 const AppNav = createAppContainer(MyDrawerNavigator)
 

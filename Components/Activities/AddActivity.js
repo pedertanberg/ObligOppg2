@@ -24,7 +24,7 @@ import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 
 
-var currentuser = { name: "Henrik Stangeland", username: "henkebass2012" }
+var currentuser = { name: "Test User", username: "TestUser" }
 
 export default class AddActivity extends React.Component {
   state = {
@@ -34,8 +34,12 @@ export default class AddActivity extends React.Component {
     description: "",
     seller: currentuser.username,
     city: "",
-    availability: ""
+    availability: "",
+    image: "https://i.imgur.com/DG8iV3O.jpg"
+
   };
+
+
 
   handlePriceChange = (text) => this.setState({ price: text });
 
@@ -50,13 +54,16 @@ export default class AddActivity extends React.Component {
   handleAvailabilityChange = (text) => this.setState({ availability: text });
 
 
+
+
   handleSave = () => {
-    const { price, activity, header, description, seller, city, availability } = this.state;
+    const { price, activity, header, description, seller, city, availability, image } = this.state;
+
     try {
       const reference = firebase
         .database()
         .ref("/activit/")
-        .push({ price, activity, header, description, seller, city, availability });
+        .push({ price, activity, header, description, seller, city, availability, image });
       Alert.alert(`Saved`);
       this.setState({
         price: "",
@@ -64,7 +71,8 @@ export default class AddActivity extends React.Component {
         header: "",
         description: "",
         city: "",
-        availability: ""
+        availability: "",
+
       });
     } catch (error) {
       Alert.alert(`Error: ${error.message}`);
@@ -73,6 +81,8 @@ export default class AddActivity extends React.Component {
 
   render() {
     const { price, activity, header, description, city, availability } = this.state;
+
+
 
     return (
       <SafeAreaView style={{ flex: 1 }}>
@@ -90,9 +100,8 @@ export default class AddActivity extends React.Component {
                 imageStyle={styles.rect2_imageStyle}
                 source={require("../Login//luke-chesser-3rWagdKBF7U-unsplash.jpg")}
               >
-
                 <Text style={styles.text3}>Create Activity</Text>
-                <View style={styles.form}>
+                <ScrollView style={styles.form}>
                   <View style={styles.nameColumn}>
                     <View style={styles.name}>
                       <FontAwesome5
@@ -108,6 +117,8 @@ export default class AddActivity extends React.Component {
                         style={styles.nameInput}
                       ></TextInput>
                     </View>
+
+
                     <View style={styles.email}>
                       <FontAwesome5
                         name="volleyball-ball"
@@ -183,6 +194,7 @@ export default class AddActivity extends React.Component {
                     <TouchableOpacity
                       onPress={this.handleSave}
 
+
                       //  onPress={() => props.navigation.navigate("Timeline")}
                       style={styles.button}
                     >
@@ -190,12 +202,12 @@ export default class AddActivity extends React.Component {
                     </TouchableOpacity>
                     <Text style={styles.text4}>Terms &amp; Conditions</Text>
                   </View>
-                </View>
+                </ScrollView>
               </ImageBackground>
             </View>
           </View>
         </View>
-      </SafeAreaView>
+      </SafeAreaView >
     );
   }
 }

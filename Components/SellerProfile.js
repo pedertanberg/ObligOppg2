@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { StyleSheet, View, Text, Switch, Image } from "react-native";
+import { StyleSheet, View, Text, Switch, Image, SafeAreaView, ScrollView } from "react-native";
 import Svg, { Ellipse } from "react-native-svg";
 import IoniconsIcon from "react-native-vector-icons/Ionicons";
 import HeaderX from "../Components/Activities/HeaderX";
@@ -8,105 +8,119 @@ import { Avatar, Accessory, ListItem, Icon } from 'react-native-elements';
 function Index(props) {
   return (
 
-    <View style={styles.container}>
-      <HeaderX
-        icon2Family="Feather"
-        icon2Name="search"
-        style={styles.headerX}
-      ></HeaderX>
-      <View style={styles.ellipseStack}>
-        <Svg viewBox="0 0 859.43 890.3" style={styles.ellipse}>
-          <Ellipse
-            strokeWidth={1}
-            fill="rgba(255,255,255,1)"
-            cx={430}
-            cy={445}
-            rx={429}
-            ry={445}
-          ></Ellipse>
-        </Svg>
-        <View style={styles.settingsList}>
-          <View style={styles.accountSettings}>
-            <Text style={styles.expanded}>Seller profile</Text>
-            <View style={styles.subSettings}>
 
-              <View style={styles.sellerProfileColumnFiller}></View>
-              <View style={styles.changeConnections}>
-                <Text style={styles.text11}>
-                  Offered courses
+
+    <ScrollView style={styles.container}>
+      <SafeAreaView>
+
+        <HeaderX
+          icon2Family="Feather"
+          icon2Name="search"
+          style={styles.headerX}
+        ></HeaderX>
+        <View style={styles.ellipseStack}>
+          <Svg viewBox="0 0 859.43 890.3" style={styles.ellipse}>
+            <Ellipse
+              strokeWidth={1}
+              fill="rgba(255,255,255,1)"
+              cx={430}
+              cy={445}
+              rx={429}
+              ry={445}
+            ></Ellipse>
+          </Svg>
+
+
+
+
+
+          <View style={styles.settingsList}>
+            <View style={styles.accountSettings}>
+              <Text style={styles.expanded}>Seller profile{'\n'}
+              </Text>
+              <Text style={styles.userTitle}>Sports and Music</Text>
+              <Text style={styles.userBio}>Hey, my name is John Skjeldrum, and i hope you are ready for my courses </Text>
+              <View style={styles.subSettings}>
+
+                <View style={styles.sellerProfileColumnFiller}></View>
+                <View style={styles.changeConnections}>
+                  <Text style={styles.text11}>
+                    Offered courses
                                     </Text>
-                <IoniconsIcon
-                  name="ios-arrow-forward"
-                  style={styles.icon2}
-                ></IoniconsIcon>
-              </View>
+                  <IoniconsIcon
+                    name="ios-arrow-forward"
+                    style={styles.icon2}
+                  ></IoniconsIcon>
+                </View>
 
 
-              <View style={styles.sellerProfileColumnFiller}></View>
-              <View style={styles.changeConnections}>
-                <Text style={styles.text11}>
-                  Book an hour
+                <View style={styles.sellerProfileColumnFiller}></View>
+                <View style={styles.changeConnections}>
+                  <Text style={styles.text11}>
+                    Book an hour
                                     </Text>
-                <IoniconsIcon
-                  name="ios-arrow-forward"
-                  style={styles.icon2}
-                ></IoniconsIcon>
-              </View>
+                  <IoniconsIcon
+                    name="ios-arrow-forward"
+                    style={styles.icon2}
+                  ></IoniconsIcon>
+                </View>
 
 
-              <View style={styles.sellerProfileColumnFiller}></View>
-              <View style={styles.changeConnections}>
-                <Text style={styles.text12}>User reviews</Text>
-                <IoniconsIcon
-                  name="ios-arrow-forward"
-                  style={styles.icon3}
-                ></IoniconsIcon>
-              </View>
+                <View style={styles.sellerProfileColumnFiller}></View>
+                <View style={styles.changeConnections}>
+                  <Text style={styles.text12}>User reviews</Text>
+                  <IoniconsIcon
+                    name="ios-arrow-forward"
+                    style={styles.icon3}
+                  ></IoniconsIcon>
+                </View>
 
-              <View style={styles.sellerProfileColumnFiller}></View>
-              <View style={styles.changeConnections}>
-                <Text style={styles.text12}>More about the seller</Text>
-                <IoniconsIcon
-                  name="ios-arrow-forward"
-                  style={styles.icon3}
-                ></IoniconsIcon>
+                <View style={styles.sellerProfileColumnFiller}></View>
+                <View style={styles.changeConnections}>
+                  <Text style={styles.text12}>More about the seller</Text>
+                  <IoniconsIcon
+                    name="ios-arrow-forward"
+                    style={styles.icon3}
+                  ></IoniconsIcon>
+                </View>
+
               </View>
+            </View>
+            <View style={styles.sub2}>
+              <View style={styles.notificationsColumn}>
+
+
+              </View>
+              <View style={styles.notificationsColumnFiller}></View>
 
             </View>
           </View>
-          <View style={styles.sub2}>
-            <View style={styles.notificationsColumn}>
-
+          <View style={styles.userInfo}>
+            <View style={styles.imageRow}>
+              <Avatar
+                size="xlarge"
+                rounded
+                source={{
+                  uri: 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fcdn1.iconfinder.com%2Fdata%2Ficons%2Fmix-color-4%2F502%2FUntitled-1-512.png&f=1&nofb=1'
+                }}
+              />
 
             </View>
-            <View style={styles.notificationsColumnFiller}></View>
+          </View>
 
-          </View>
         </View>
-        <View style={styles.userInfo}>
-          <View style={styles.imageRow}>
-            <Avatar
-              size="xlarge"
-              rounded
-              source={{
-                uri: 'https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2Fchessmaine.net%2Fchessmaine%2FimagesB%2FWCC2018%2FTB9.png&f=1&nofb=1'
-              }}
-            />
-            <Text style={styles.userBio}>Hey, my name is Magnus Carlsen, and i hope you are ready for my chess courses </Text>
-            <Text style={styles.userTitle}>Chess Grandmaster</Text>
-          </View>
-        </View>
-      </View>
-      <Text style={styles.pageName}>Magnus Carlsen</Text>
-    </View>
+        <Text style={styles.pageName}>John Skjeldrum</Text>
+      </SafeAreaView>
+    </ScrollView>
+
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     backgroundColor: "#21164e",
-    width: 420,
-    height: 660
+    width: '100%',
+    height: '100%'
   },
   headerX: {
     height: 80,
@@ -122,8 +136,8 @@ const styles = StyleSheet.create({
   ellipse: {
     top: 0,
     left: 0,
-    width: 859,
-    height: 890,
+    width: '100%',
+    height: '100%',
     position: "absolute"
   },
   settingsList: {
@@ -131,18 +145,20 @@ const styles = StyleSheet.create({
     height: 409,
     position: "absolute",
     right: 450,
-    bottom: 272
+    bottom: 272,
+    marginTop: '30%'
   },
   accountSettings: {
     height: 165,
-    marginTop: 15,
-    marginLeft: 24,
+    marginTop: '10%',
+    marginLeft: '10%',
     marginRight: 24
   },
   expanded: {
     color: "#121212",
     fontSize: 18,
-    marginTop: -3
+    marginTop: -3,
+    marginBottom: "5%"
   },
   subSettings: {
     height: 118,
@@ -160,7 +176,7 @@ const styles = StyleSheet.create({
     color: "rgba(31,178,204,1)",
     fontSize: 30,
     alignSelf: "flex-end",
-    marginTop: -6
+    marginTop: -8
   },
   changeConnections: {
     height: 30,
@@ -179,7 +195,7 @@ const styles = StyleSheet.create({
   },
   sellerProfileColumns: {
     marginLeft: 10,
-    marginRight: 10
+    marginRight: '10%'
   },
   sellerProfileColumnFiller: {
     flex: 1
@@ -211,7 +227,7 @@ const styles = StyleSheet.create({
     alignSelf: "center"
   },
   switch3: {
-    width: 50,
+    width: '100%',
     alignSelf: "flex-end"
   },
   text7: {
@@ -226,7 +242,7 @@ const styles = StyleSheet.create({
     marginTop: 53
   },
   switch2: {
-    width: 30,
+    width: '30%',
     alignSelf: "flex-end",
     marginRight: -2
   },
@@ -246,7 +262,7 @@ const styles = StyleSheet.create({
 
   },
   switch4: {
-    width: 80,
+    width: '80%',
     alignSelf: "flex-end"
   },
   text73: {
@@ -264,30 +280,31 @@ const styles = StyleSheet.create({
     flexDirection: "row"
   },
   image: {
-    width: 118,
-    height: 118,
+    width: '100%',
+    height: '100%',
 
   },
   userBio: {
     color: "rgba(0,0,0,1)",
     fontSize: 16,
-    marginLeft: 43,
-    marginTop: 60,
-    marginRight: 0,
+    marginLeft: '10%',
+    marginTop: 50,
+    marginRight: '10%',
   },
   userTitle: {
     color: "#1fb2cc",
     fontSize: 24,
-    marginTop: 22,
-    right: "170%"
+    marginTop: '20%',
+    right: "0%"
   },
   imageRow: {
     height: 118,
-    flexDirection: "row",
-    flex: 1,
-    marginRight: 158,
-    marginLeft: -14,
-    marginTop: -9
+    flexDirection: "column",
+    flex: 2,
+    marginRight: '10%',
+    marginLeft: '-10%',
+    marginTop: '-5%',
+    marginBottom: '5%'
   },
   ellipseStack: {
     height: 890,

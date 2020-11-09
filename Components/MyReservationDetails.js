@@ -198,7 +198,7 @@ export default class MyReservationsDetails extends React.Component {
         >
           <ScrollView>
             <View style={styles.row}>
-              <Image source={{ uri: booking.image }} style={styles.photo} />
+              <Image source={{ uri: activity.image }} style={styles.photo} />
             </View>
             <View style={styles.row}>
               <IoniconsIcon

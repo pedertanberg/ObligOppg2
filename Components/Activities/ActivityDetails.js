@@ -123,29 +123,31 @@ const styles = StyleSheet.create({
     }
 });
 
-var date = new Date().getDate(); //To get the Current Date
-var month = new Date().getMonth() + 1; //To get the Current Month
-var year = new Date().getFullYear(); //To get the Current Year
 
 
-var currentbuyer = { name: "John Skjeldrum", username: "Shelldrum" }
+
+var currentseller = { name: "John Skjeldrum", username: "Shelldrum" }
 
 
 const testIDs = require('../Modal/testIDs');
 
 export default class ActivityDetails extends React.Component {
 
-    state = { activity: null, modalVisible: false, tid: "", bookingID: "2", selger: currentbuyer.name, kunde: "henrik", activity: "" };
+    state = {
+        activity: null,
+        modalVisible: false,
+        tid: "",
+        selger: currentseller.name,
+        kunde: "TestUser",
+        activity: "",
+        image: "https://i.imgur.com/DG8iV3O.jpg"
+    };
 
     componentDidMount() {
         // Vi udlæser ID fra navgation parametre og loader bilen når komponenten starter
         const id = this.props.navigation.getParam('id');
         this.LoadActivity(id);
     }
-
-
-
-
 
 
     LoadActivity = id => {
@@ -157,6 +159,7 @@ export default class ActivityDetails extends React.Component {
                 this.setState({ activity: asds.val() });
             });
     };
+
 
     setModalVisible = (visible) => {
         this.setState({ modalVisible: visible });
@@ -210,7 +213,7 @@ export default class ActivityDetails extends React.Component {
     handleAddBooking = () => {
         const { navigation } = this.props;
         const id = navigation.getParam('id');
-        const { tid, bookingID, selger, kunde, activity } = this.state;
+        const { tid, selger, kunde, activity, image } = this.state;
 
         try {
             firebase
@@ -218,7 +221,7 @@ export default class ActivityDetails extends React.Component {
                 // Vi sætter aktivitetens ID ind i stien
                 .ref(`/booking`)
                 // Og fjerner data fra den sti
-                .push({ tid, bookingID, selger, kunde, id, activity });
+                .push({ tid, selger, kunde, id, activity, image });
             Alert.alert(`Booking confirmed`);
             // Og går tilbage når det er udført
             navigation.goBack();
@@ -275,7 +278,7 @@ export default class ActivityDetails extends React.Component {
                             <Text style={styles.value}>{activity.seller}</Text>
                         </View>
                         <View style={styles.row}>
-                            <Calendar></Calendar>
+                            <Calendar ></Calendar>
                         </View>
                         <View style={styles.city}>
                             <FontAwesome5

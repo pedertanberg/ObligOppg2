@@ -41,12 +41,20 @@ const styles = StyleSheet.create({
 export default class MyReservations extends React.Component {
     state = {
         booking: {},
+        activity: {},
 
 
     };
 
     //Setter opp ref mot database og verdi der skal hentes.
     componentDidMount() {
+
+        this.LoadBooking();
+        this.LoadActivity();
+
+    }
+
+    LoadBooking() {
         firebase
             .database()
             .ref("/booking")
@@ -54,15 +62,13 @@ export default class MyReservations extends React.Component {
                 this.setState({ booking: snapshot.val() });
 
             });
-        this.LoadActivity()
+    };
 
-    }
-
-    LoadActivity() {
+    LoadActivity = id => {
         firebase
             .database()
             // ID fra funktionens argument sættes ind i stien vi læser fra
-            .ref('/booking/activity')
+            .ref('/booking/' + id + '/activity')
             .on('value', asds => {
                 this.setState({ activity: asds.val() });
             });
@@ -76,6 +82,7 @@ export default class MyReservations extends React.Component {
 
     render() {
         const { booking } = this.state;
+        const { activity } = this.state;
 
 
 
@@ -84,9 +91,9 @@ export default class MyReservations extends React.Component {
             return null;
         }
         // Flatlist forventer et array. Derfor tar vi alle values fra vårt activity objekt, og bruke som array til listen
-        const ActivityArray = Object.values(booking);
+        const ActivityArray = Object.values(booking, activity);
         // Vi skal også bruke alle IDer, så vi tar alle keys også.
-        const ActivityKeys = Object.keys(booking);
+        const ActivityKeys = Object.keys(booking, activity);
         return (
             //Setter gradient bildet fra Login mappen og bruker som bakgrunnsbildet med styling.
             <ImageBackground
@@ -113,6 +120,7 @@ export default class MyReservations extends React.Component {
                         renderItem={({ item, index }) => (
                             <MyReservationsItem
                                 booking={item}
+                                activity={item}
                                 id={ActivityKeys[index]}
                                 onSelect={this.handleSelectActivity}
                             />

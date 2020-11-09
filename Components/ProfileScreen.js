@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Text, View, StyleSheet, ImageBackground, Button, SafeAreaView, ProgressViewIOSComponent } from 'react-native';
+import { Text, View, StyleSheet, ImageBackground, Button, SafeAreaView, ProgressViewIOSComponent, ScrollView } from 'react-native';
 import firebase from 'firebase';
 import { Avatar, Caption, Title } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -18,70 +18,72 @@ export default class ProfileScreen extends React.Component {
 
   render() {
     return (
+
       <ImageBackground style={styles.background}
         source={require('./Login/luke-chesser-3rWagdKBF7U-unsplash.jpg')}>
 
-        <SafeAreaView style={styles.container}>
-          <View style={styles.userInfoSection}>
-            <View style={{ flexDirection: 'row', marginTop: 15 }}>
-              <Avatar.Image
-                source={require('../assets/user.png')}
-                size={100}
-              />
-              <View style={{ marginLeft: 20 }}>
-                <Title style={styles.title, {
-                  marginTop: 15,
-                  marginBottom: 5,
-                  color: "#fff"
+        <ScrollView>
+          <SafeAreaView style={styles.container}>
 
-                }}> TestBruker </Title>
-                <Caption style={styles.caption}> Feedback er ønsket </Caption>
+            <View style={styles.userInfoSection}>
+              <View style={{ flexDirection: 'row', marginTop: 15 }}>
+                <Avatar.Image
+                  source={require('../assets/user.png')}
+                  size={100}
+                />
+                <View style={{ marginLeft: 20 }}>
+                  <Title style={styles.title, {
+                    marginTop: 15,
+                    marginBottom: 5,
+                    color: "#fff"
+
+                  }}> TestBruker </Title>
+                  <Caption style={styles.caption}> Feedback er ønsket </Caption>
+                </View>
               </View>
             </View>
-          </View>
 
-          <View style={styles.userInfoSection}>
-            <View style={styles.row}>
-              <Icon name="map-marker-radius" color="#fff" size={20} />
-              <Text style={{ color: "#fff", marginLeft: 20 }}> Norge </Text>
+            <View style={styles.userInfoSection}>
+              <View style={styles.row}>
+                <Icon name="map-marker-radius" color="#fff" size={20} />
+                <Text style={{ color: "#fff", marginLeft: 20 }}> Norge </Text>
+              </View>
+              <View style={styles.row}>
+                <Icon name="phone" color="#fff" size={20} />
+                <Text style={{ color: "#fff", marginLeft: 20 }}> +47 90909090 </Text>
+              </View>
+              <View style={styles.row}>
+                <Icon name="email" color="#fff" size={20} />
+                <Text style={{ color: "#fff", marginLeft: 20 }}> testbruker@gmail.com </Text>
+              </View>
             </View>
-            <View style={styles.row}>
-              <Icon name="phone" color="#fff" size={20} />
-              <Text style={{ color: "#fff", marginLeft: 20 }}> +47 90909090 </Text>
+            <View style={styles.borderLine} />
+
+            <View>
+              <TouchableOpacity
+
+                onPress={() => this.props.navigation.navigate('MyReservations')}
+                style={styles.buttonSection}
+                title="Manage bookings"
+
+              >
+                <Text style={styles.text}><Icon name="folder" color="#fff" size={20} />Trykk her for å se dine reservasjoner</Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+
+                onPress={() => this.props.navigation.navigate('MyListings')}
+                style={styles.buttonSection}
+                title="Manage bookings"
+
+              >
+                <Text style={styles.text2}><Icon name="folder" color="#fff" size={20} />Trykk her for å se dine aktiviteter</Text>
+              </TouchableOpacity>
             </View>
-            <View style={styles.row}>
-              <Icon name="email" color="#fff" size={20} />
-              <Text style={{ color: "#fff", marginLeft: 20 }}> testbruker@gmail.com </Text>
-            </View>
-          </View>
-          <View style={styles.borderLine} />
-
-          <View>
-            <TouchableOpacity
-
-              onPress={() => this.props.navigation.navigate('MyReservations')}
-              style={styles.buttonSection}
-              title="Manage bookings"
-
-            >
-              <Text style={styles.text}><Icon name="folder" color="#fff" size={20} />Trykk her for å se dine reservasjoner</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-
-              onPress={() => this.props.navigation.navigate('MyListings')}
-              style={styles.buttonSection}
-              title="Manage bookings"
-
-            >
-              <Text style={styles.text2}><Icon name="folder" color="#fff" size={20} />Trykk her for å se dine aktiviteter</Text>
-            </TouchableOpacity>
-          </View>
 
 
-
-
-        </SafeAreaView>
+          </SafeAreaView>
+        </ScrollView>
       </ImageBackground>
 
     )
@@ -91,8 +93,8 @@ export default class ProfileScreen extends React.Component {
 
 const styles = StyleSheet.create({
   buttonSection: {
-    width: '100%%',
-    height: '40%',
+    width: '100%',
+    height: '20%',
     justifyContent: 'space-around',
     alignItems: 'center',
     marginLeft: 50,
@@ -112,13 +114,13 @@ const styles = StyleSheet.create({
     color: '#fff',
     alignContent: "center",
     marginLeft: -100,
-    marginTop: 10,
+    marginTop: 0,
   },
   text2: {
     color: '#fff',
     alignContent: "center",
     marginLeft: -100,
-    marginTop: -150,
+    marginTop: 0,
 
   },
   button: {

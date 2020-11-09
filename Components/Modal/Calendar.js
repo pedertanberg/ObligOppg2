@@ -11,6 +11,7 @@ const CalendarsScreen = () => {
 
   const onDayPress = (day) => {
     setSelected(day.dateString);
+    console.log(day)
   };
 
 
@@ -21,7 +22,7 @@ const CalendarsScreen = () => {
   const renderCalendarWithSelectableDate = () => {
     return (
       <Fragment>
-        <Text style={styles.text}>Select Date</Text>
+        <Text style={styles.text}>See available dates</Text>
         <Calendar
           testID={testIDs.calendars.FIRST}
           current={'2020-11-02'}
@@ -29,13 +30,25 @@ const CalendarsScreen = () => {
           hideExtraDays
           onDayPress={onDayPress}
           markedDates={{
-            [selected]: {
-              selected: true,
-              disableTouchEvent: true,
-              selectedColor: 'orange',
-              selectedTextColor: 'red',
-            },
+
+            '2020-11-14': { disabled: true, startingDay: true, color: 'green', endingDay: true },
+            '2020-11-15': { disabled: true, startingDay: true, color: 'green', endingDay: true },
+            '2020-11-16': { disabled: true, startingDay: true, color: 'green', endingDay: true },
+            '2020-11-17': { disabled: true, startingDay: true, color: 'green', endingDay: true },
+            '2020-11-18': { disabled: true, startingDay: true, color: 'green', endingDay: true },
+            '2020-11-19': { disabled: true, startingDay: true, color: 'green', endingDay: true },
+            '2020-11-20': { disabled: true, startingDay: true, color: 'green', endingDay: true },
+            '2020-12-05': { disabled: true, startingDay: true, color: 'green', endingDay: true },
+            '2020-12-06': { disabled: true, startingDay: true, color: 'green', endingDay: true },
+            '2020-12-08': { disabled: true, startingDay: true, color: 'green', endingDay: true },
+            '2020-12-09': { disabled: true, startingDay: true, color: 'green', endingDay: true },
+
+
+
           }}
+
+          // Date marking style [simple/period/multi-dot/custom]. Default = 'simple'
+          markingType={'period'}
         />
       </Fragment>
     );

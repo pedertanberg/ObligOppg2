@@ -2,28 +2,43 @@ import React, { Component } from "react";
 import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
 import MaterialIconsIcon from "react-native-vector-icons/MaterialIcons";
 import FeatherIcon from "react-native-vector-icons/Feather";
+import { DrawerActions } from 'react-navigation-drawer'
 
-function HeaderX(props) {
-  return (
-    <View style={[styles.container, props.style]}>
-      <View style={styles.group}>
-        <View style={styles.iconRow}>
-          <MaterialIconsIcon
-            name="arrow-forward"
-            style={styles.icon}
-          ></MaterialIconsIcon>
-          <Text style={styles.iRate}>ActivIT</Text>
+export default class HeaderX extends React.Component {
+
+  constructor(props) {
+    super(props);
+
+    this.state = ({
+
+    });
+  }
+  render() {
+    const navigation = this.props // <-- add this line
+
+    return (
+      <View style={[styles.container]}>
+        <View style={styles.group}>
+          <View style={styles.iconRow}>
+            <MaterialIconsIcon
+              name="arrow-forward"
+              style={styles.icon}
+
+
+            ></MaterialIconsIcon>
+            <Text style={styles.iRate}>ActivIT</Text>
+          </View>
+          <View style={styles.iconRowFiller}></View>
+          <TouchableOpacity /* Conditional navigation not supported at the moment */
+            onPress={() => console.log("Navigate to Settings")}
+            style={styles.button}
+          >
+
+          </TouchableOpacity>
         </View>
-        <View style={styles.iconRowFiller}></View>
-        <TouchableOpacity /* Conditional navigation not supported at the moment */
-          onPress={() => console.log("Navigate to Settings")}
-          style={styles.button}
-        >
-
-        </TouchableOpacity>
       </View>
-    </View>
-  );
+    );
+  }
 }
 
 const styles = StyleSheet.create({
@@ -72,4 +87,3 @@ const styles = StyleSheet.create({
   }
 });
 
-export default HeaderX;
