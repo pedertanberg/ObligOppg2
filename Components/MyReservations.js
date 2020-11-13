@@ -57,7 +57,7 @@ export default class MyReservations extends React.Component {
     LoadBooking() {
         firebase
             .database()
-            .ref("/booking")
+            .ref("/booking").orderByChild("kunde").equalTo(firebase.auth().currentUser.email,)
             .on("value", (snapshot) => {
                 this.setState({ booking: snapshot.val() });
 
@@ -68,7 +68,7 @@ export default class MyReservations extends React.Component {
         firebase
             .database()
             // ID fra funktionens argument sættes ind i stien vi læser fra
-            .ref('/booking/' + id + '/activity')
+            .ref('/booking/' + id + '/activity').orderByChild("kunde").equalTo(firebase.auth().currentUser.email,)
             .on('value', asds => {
                 this.setState({ activity: asds.val() });
             });

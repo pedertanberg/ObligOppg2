@@ -126,7 +126,6 @@ const styles = StyleSheet.create({
 
 
 
-var currentseller = { name: "John Skjeldrum", username: "Shelldrum" }
 
 
 const testIDs = require('../Modal/testIDs');
@@ -137,8 +136,8 @@ export default class ActivityDetails extends React.Component {
         activity: null,
         modalVisible: false,
         tid: "",
-        selger: currentseller.name,
-        kunde: "TestUser",
+        seller: "",
+        kunde: firebase.auth().currentUser.email,
         activity: "",
         image: "https://i.imgur.com/DG8iV3O.jpg"
     };
@@ -213,7 +212,7 @@ export default class ActivityDetails extends React.Component {
     handleAddBooking = () => {
         const { navigation } = this.props;
         const id = navigation.getParam('id');
-        const { tid, selger, kunde, activity, image } = this.state;
+        const { tid, seller, kunde, activity, image } = this.state;
 
         try {
             firebase
@@ -221,7 +220,7 @@ export default class ActivityDetails extends React.Component {
                 // Vi sætter aktivitetens ID ind i stien
                 .ref(`/booking`)
                 // Og fjerner data fra den sti
-                .push({ tid, selger, kunde, id, activity, image });
+                .push({ tid, seller, kunde, id, activity, image });
             Alert.alert(`Booking confirmed`);
             // Og går tilbage når det er udført
             navigation.goBack();

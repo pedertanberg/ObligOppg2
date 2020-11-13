@@ -222,7 +222,7 @@ export default class MyReservationsDetails extends React.Component {
                 style={styles.icon2}
               ></IoniconsIcon>
               <Text style={styles.label}>Selger</Text>
-              <Text style={styles.value}>{booking.selger}</Text>
+              <Text style={styles.value}>{activity.seller}</Text>
             </View>
             <View style={styles.row}>
               <IoniconsIcon

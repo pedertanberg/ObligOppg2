@@ -46,7 +46,7 @@ export default class ActivityList extends React.Component {
     componentDidMount() {
         firebase
             .database()
-            .ref("/activit").orderByChild("seller").equalTo("TestUser")
+            .ref("/activit").orderByChild("seller").equalTo(firebase.auth().currentUser.email,)
             .on("value", (snapshot) => {
                 this.setState({ activities: snapshot.val() });
             });

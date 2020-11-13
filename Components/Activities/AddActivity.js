@@ -13,7 +13,7 @@ import {
   TouchableOpacity,
   TextInput
 } from "react-native";
-import firebase from "firebase";
+import firebase, { auth } from "firebase";
 import HeaderX from "../Activities/HeaderX";
 
 
@@ -24,7 +24,6 @@ import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 
 
-var currentuser = { name: "Test User", username: "TestUser" }
 
 export default class AddActivity extends React.Component {
   state = {
@@ -32,13 +31,17 @@ export default class AddActivity extends React.Component {
     activity: "",
     header: "",
     description: "",
-    seller: currentuser.username,
+    seller: firebase.auth().currentUser.email,
     city: "",
     availability: "",
-    image: "https://i.imgur.com/DG8iV3O.jpg"
+    image: "https://i.imgur.com/DG8iV3O.jpg",
+
+  
 
   };
 
+ 
+  
 
 
   handlePriceChange = (text) => this.setState({ price: text });
@@ -57,7 +60,9 @@ export default class AddActivity extends React.Component {
 
 
   handleSave = () => {
+ 
     const { price, activity, header, description, seller, city, availability, image } = this.state;
+    console.log(seller)
 
     try {
       const reference = firebase
@@ -80,8 +85,10 @@ export default class AddActivity extends React.Component {
   };
 
   render() {
+    
     const { price, activity, header, description, city, availability } = this.state;
-
+  
+    
 
 
     return (

@@ -12,7 +12,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 
 
 export default class ProfileScreen extends React.Component {
-  state = { profile: null };
+  state = { };
 
 
 
@@ -37,24 +37,25 @@ export default class ProfileScreen extends React.Component {
                     marginBottom: 5,
                     color: "#fff"
 
-                  }}> TestBruker </Title>
+                  }}> {firebase.auth().currentUser.displayName} </Title>
                   <Caption style={styles.caption}> Feedback er ønsket </Caption>
                 </View>
               </View>
             </View>
+            
 
             <View style={styles.userInfoSection}>
               <View style={styles.row}>
                 <Icon name="map-marker-radius" color="#fff" size={20} />
-                <Text style={{ color: "#fff", marginLeft: 20 }}> Norge </Text>
+                <Text style={{ color: "#fff", marginLeft: 20 }}> {firebase.auth().currentUser.email} </Text>
               </View>
               <View style={styles.row}>
                 <Icon name="phone" color="#fff" size={20} />
-                <Text style={{ color: "#fff", marginLeft: 20 }}> +47 90909090 </Text>
+                <Text style={{ color: "#fff", marginLeft: 20 }}>{firebase.auth().currentUser.phoneNumber} </Text>
               </View>
               <View style={styles.row}>
                 <Icon name="email" color="#fff" size={20} />
-                <Text style={{ color: "#fff", marginLeft: 20 }}> testbruker@gmail.com </Text>
+                <Text style={{ color: "#fff", marginLeft: 20 }}> {firebase.auth().currentUser.email} </Text>
               </View>
             </View>
             <View style={styles.borderLine} />
@@ -62,7 +63,7 @@ export default class ProfileScreen extends React.Component {
             <View>
               <TouchableOpacity
 
-                onPress={() => this.props.navigation.navigate('MyReservations')}
+                onPress={() => this.props.navigation.navigate('EditProfile')}
                 style={styles.buttonSection}
                 title="Manage bookings"
 

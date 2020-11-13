@@ -1,8 +1,10 @@
 import React, { Component } from "react";
+import firebase from "firebase";
 import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
 import MaterialIconsIcon from "react-native-vector-icons/MaterialIcons";
 import FeatherIcon from "react-native-vector-icons/Feather";
-import { DrawerActions } from 'react-navigation-drawer'
+import { DrawerActions } from 'react-navigation-drawer';
+
 
 export default class HeaderX extends React.Component {
 
@@ -23,18 +25,31 @@ export default class HeaderX extends React.Component {
             <MaterialIconsIcon
               name="arrow-forward"
               style={styles.icon}
-
+             
 
             ></MaterialIconsIcon>
             <Text style={styles.iRate}>ActivIT</Text>
           </View>
           <View style={styles.iconRowFiller}></View>
-          <TouchableOpacity /* Conditional navigation not supported at the moment */
-            onPress={() => console.log("Navigate to Settings")}
-            style={styles.button}
-          >
+          
+          <MaterialIconsIcon
+              name="delete"
+              style={styles.icon}
+              onPress={() =>
+           
+                firebase
+                  .auth()
+                  .signOut()
+                  .then(() => {
+                    this.props.navigation.navigate("ProfileScreen");
+                  })
+                  .catch(function(error) {
+                    // An error happened.
+                  })
+            }
 
-          </TouchableOpacity>
+            ></MaterialIconsIcon>
+      
         </View>
       </View>
     );
