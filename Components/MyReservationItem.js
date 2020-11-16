@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
     padding: 5,
     height: 200,
     justifyContent: "center",
-    backgroundColor: "#21164e",
+    backgroundColor: "#000",
   },
   rect2: {
     height: 100,
@@ -48,7 +48,7 @@ export default class MyReservationsItem extends React.Component {
         <Text style={styles.label}>
           <Image source={{ uri: activity.image }} style={styles.rect2} />{'\n'}
           <FontAwesome5 name="id-card" style={styles.icon5} /> BookingID: {booking.id}{'\n'}
-        
+
           <FontAwesome5 name="calendar" style={styles.icon5} /> Tid: {booking.tid} {'\n'}
 
         </Text>

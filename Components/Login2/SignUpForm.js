@@ -1,10 +1,12 @@
 import * as React from 'react';
-import {Button,Text,
+import {
+    Button, Text,
     View,
     TextInput,
     ActivityIndicator,
     StyleSheet,
     Alert,
+    KeyboardAvoidingView
 } from 'react-native';
 import firebase from 'firebase';
 import Constants from "expo-constants";
@@ -14,16 +16,19 @@ const styles = StyleSheet.create({
         color: 'red',
     },
     inputField: {
-        borderWidth: 1,
+        borderBottomColor: "#fff",
+        borderBottomWidth: 3,
+        width: "100%",
         margin: 10,
         padding: 10,
+        color: "#fff",
     },
     header: {
         fontSize: 20,
     },
     activItStack: {
         paddingTop: Constants.statusBarHeight,
-        backgroundColor: '#add8e6',
+        backgroundColor: '#000',
         padding: 8,
         flex: 1,
         justifyContent: 'center',
@@ -72,16 +77,18 @@ export default class SignUpForm extends React.Component {
             return <Text>You are now signed up</Text>;
         }
         return (
-            <View style={styles.activItStack}>
+            <KeyboardAvoidingView behavior="padding" style={styles.activItStack}>
                 <Text style={styles.header}>Sign up</Text>
                 <TextInput
                     placeholder="email"
+                    placeholderTextColor="#fff"
                     value={email}
                     onChangeText={this.handleChangeEmail}
                     style={styles.inputField}
                 />
                 <TextInput
                     placeholder="password"
+                    placeholderTextColor="#fff"
                     value={password}
                     onChangeText={this.handleChangePassword}
                     secureTextEntry
@@ -91,7 +98,7 @@ export default class SignUpForm extends React.Component {
                     <Text style={styles.error}>Error: {errorMessage}</Text>
                 )}
                 {this.renderButton()}
-            </View>
+            </KeyboardAvoidingView>
         );
     };
 
@@ -100,6 +107,6 @@ export default class SignUpForm extends React.Component {
         if (isLoading) {
             return <ActivityIndicator />;
         }
-        return <Button onPress={this.handleSubmit} title="Create user" />;
+        return <Button color="grey" onPress={this.handleSubmit} title="Create user" />;
     };
 }

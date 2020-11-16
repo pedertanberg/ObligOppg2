@@ -1,6 +1,6 @@
 //import React, { Component } from 'react';
 import * as React from 'react';
-import { Text, View, ImageBackground, StyleSheet, ScrollView, Button, Alert, Image } from 'react-native';
+import { Text, View, ImageBackground, StyleSheet, ScrollView, Button, Alert, Image, KeyboardAvoidingView } from 'react-native';
 import * as Google from 'expo-google-app-auth';
 import SignUpForm from "./SignUpForm";
 import LoginForm from "./LoginForm";
@@ -11,7 +11,7 @@ import HeaderX from "../Activities/HeaderX";
 
 const googleConfig = {
     /*Android/IOS ID behøver ikke at blive skiftet */
-    clientId:'581168810002-buvtrj88js68ch38iiau4556c23i1br6.apps.googleusercontent.com',
+    clientId: '581168810002-buvtrj88js68ch38iiau4556c23i1br6.apps.googleusercontent.com',
     iosClientId: '603386649315-vp4revvrcgrcjme51ebuhbkbspl048l9.apps.googleusercontent.com',
     androidClientId: '603386649315-9rbv8vmv2vvftetfbvlrbufcps1fajqf.apps.googleusercontent.com',
     iosStandaloneAppClientId: '<IOS_CLIENT_ID>',
@@ -20,33 +20,33 @@ const googleConfig = {
 
 
 export default class GoogleLogin extends React.Component {
-    state={
-        isLoggedIn:false,
-        googleUser:"",
-        googleToken:""
+    state = {
+        isLoggedIn: false,
+        googleUser: "",
+        googleToken: ""
     };
     /*Metode der kaldes for at logge ind med Async! */
     handleGoogleLogin = async () => {
         try {
             /*Returnere et true false med type og en bruger du logger ind med*/
-            const { type,  accessToken, user } = await Google.logInAsync(googleConfig);
+            const { type, accessToken, user } = await Google.logInAsync(googleConfig);
 
             /*Er det et en success?*/
-            if(type === "success"){
-                this.setState({isLoggedIn:true});
-                this.setState({googleUser:user});
-                this.setState({googleToken:accessToken});
+            if (type === "success") {
+                this.setState({ isLoggedIn: true });
+                this.setState({ googleUser: user });
+                this.setState({ googleToken: accessToken });
                 /*Debug til om der et token sat*/
-                console.log(accessToken+ ' her er token')
+                console.log(accessToken + ' her er token')
 
                 /*Jeg går ikke igennem med login*/
-            }else if(type === "cancel"){
+            } else if (type === "cancel") {
                 Alert.alert(
                     'Cancelled!',
                     'Login was cancelled!',
                 );
                 /*Hvis alt andet fejler så vis en fejl*/
-            }else {
+            } else {
                 Alert.alert(
                     'Oops!',
                     'Login failed!',
@@ -60,69 +60,63 @@ export default class GoogleLogin extends React.Component {
 
 
     /*Logger ud*/
-    _handleLogOut = async () =>{
-        try{
-            const {type} = await Google.logOutAsync({accessToken:this.state.googleToken,...googleConfig});
-            this.setState({isLoggedIn:false,googleUser:"",googleToke:""});
-            console.log('dette er min '+type)
-        }catch (e) {
+    _handleLogOut = async () => {
+        try {
+            const { type } = await Google.logOutAsync({ accessToken: this.state.googleToken, ...googleConfig });
+            this.setState({ isLoggedIn: false, googleUser: "", googleToke: "" });
+            console.log('dette er min ' + type)
+        } catch (e) {
             console.log(e)
         }
     };
 
     render() {
-        const {googleUser,isLoggedIn} = this.state;
+        const { googleUser, isLoggedIn } = this.state;
 
-        if(!isLoggedIn){
+        if (!isLoggedIn) {
             return (
 
-                <View style={styles.root}>
-                    
+                <KeyboardAvoidingView behaviour="padding" style={styles.root}>
+
                     <ImageBackground
                         style={styles.rect}
                         imageStyle={styles.rect_imageStyle}
-                        source={require('./bakgrunn1.jpg')}
+                        source={require('./luke-chesser-3rWagdKBF7U-unsplash.jpg')}
                     >
-                   
 
-                    <View style={styles.background}>
 
-                    <ScrollView style={styles.background}>
+                        <KeyboardAvoidingView behaviour="padding" style={styles.background}>
 
-                    <Text style={styles.paragraph}>
-                        Få adgang til en gigantisk plattform med massevis av aktiviteter!
-                    </Text>
-                    <Button
-                        title="Login med Google"
-                        onPress={this.handleGoogleLogin}
-                    />
-                 
+                            <ScrollView style={styles.background}>
 
-                 
-                    <View>
-                        <Biometrics/>
-                    </View>
+                                <Text style={styles.paragraph}>
 
-                        <Text style={styles.paragraph}>
-                            Eller opprett og logg inn med en activItkonto
+                                </Text>
+                                <Button
+                                    title="Login med Google"
+                                    onPress={this.handleGoogleLogin}
+                                />
+
+                                <Text style={styles.paragraph}>
+                                    Eller opprett og logg inn med en activItkonto
                         </Text>
-                        <Card>
-                            <SignUpForm />
-                        </Card>
-                        <Card>
-                            <LoginForm />
-                        </Card>
-                    </ScrollView>
+                                <Card>
+                                    <SignUpForm />
+                                </Card>
+                                <Card>
+                                    <LoginForm />
+                                </Card>
+                            </ScrollView>
 
-                    </View>
+                        </KeyboardAvoidingView>
                     </ImageBackground>
 
-                </View>
+                </KeyboardAvoidingView>
 
             );
-        }else {
+        } else {
             return (
-                    <MainScreen/>
+                <MainScreen />
             )
         }
 

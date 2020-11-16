@@ -40,7 +40,8 @@ const StackNavigator = createStackNavigator(
     MyListings: { screen: MyListings },
     EditListing: { screen: EditListing },
     CalendarScreen: { screen: CalendarScreen },
-    EditProfile: {screen:EditProfile}
+    EditProfile: { screen: EditProfile },
+    AddActivity: { screen: AddActivity }
 
   },
   { initialRouteKey: "Activity List" }
@@ -96,24 +97,30 @@ const MyDrawerNavigator = createDrawerNavigator({
       )
     }
   },
+
   ProfileScreen: {
     screen: ProfileScreen,
     navigationOptions: {
       title: "See your profile",
       drawerIcon: () => (
         <IoniconsIcon
-          name="ios-person"
+          name="md-albums"
           style={styles.icon2}
         ></IoniconsIcon>
       )
     }
   },
 
-  
- 
+
+
+
+
 
 })
-const AppNav = createAppContainer(MyDrawerNavigator)
+const AppNav = createAppContainer(MyDrawerNavigator);
+
+
+
 
 
 
@@ -140,8 +147,8 @@ export default class App extends React.Component {
 
   signOut = () => {
     return (dispatch, getState) => {
-      firebase.auth().signOut().then(()=>{
-        dispatch({type:'Signout Success'})
+      firebase.auth().signOut().then(() => {
+        dispatch({ type: 'Signout Success' })
       })
     }
   }
@@ -152,6 +159,7 @@ export default class App extends React.Component {
 
 
   }
+
 }
 const styles = StyleSheet.create({
 

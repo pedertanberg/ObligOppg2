@@ -22,34 +22,35 @@ export default class HeaderX extends React.Component {
       <View style={[styles.container]}>
         <View style={styles.group}>
           <View style={styles.iconRow}>
-            <MaterialIconsIcon
-              name="arrow-forward"
+            <FeatherIcon
+              name="plus"
               style={styles.icon}
-             
 
-            ></MaterialIconsIcon>
+
+
+            ></FeatherIcon>
             <Text style={styles.iRate}>ActivIT</Text>
           </View>
           <View style={styles.iconRowFiller}></View>
-          
-          <MaterialIconsIcon
-              name="delete"
-              style={styles.icon}
-              onPress={() =>
-           
-                firebase
-                  .auth()
-                  .signOut()
-                  .then(() => {
-                    this.props.navigation.navigate("ProfileScreen");
-                  })
-                  .catch(function(error) {
-                    // An error happened.
-                  })
+
+          <FeatherIcon
+            name="log-out"
+            style={styles.icon}
+            onPress={() =>
+
+              firebase
+                .auth()
+                .signOut()
+                .then(() => {
+                  this.props.navigation.navigate("ProfileScreen");
+                })
+                .catch(function (error) {
+                  // An error happened.
+                })
             }
 
-            ></MaterialIconsIcon>
-      
+          ></FeatherIcon>
+
         </View>
       </View>
     );
@@ -58,11 +59,11 @@ export default class HeaderX extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: "#21164e"
+    backgroundColor: "#000"
   },
   group: {
     height: 55,
-    backgroundColor: "#21164e",
+    backgroundColor: "#000",
     flexDirection: "row",
     marginTop: 25
   },

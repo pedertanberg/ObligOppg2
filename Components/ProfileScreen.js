@@ -12,7 +12,7 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 
 
 export default class ProfileScreen extends React.Component {
-  state = { };
+  state = {};
 
 
 
@@ -28,7 +28,7 @@ export default class ProfileScreen extends React.Component {
             <View style={styles.userInfoSection}>
               <View style={{ flexDirection: 'row', marginTop: 15 }}>
                 <Avatar.Image
-                  source={require('../assets/user.png')}
+                  source={{ uri: firebase.auth().currentUser.photoURL }}
                   size={100}
                 />
                 <View style={{ marginLeft: 20 }}>
@@ -37,21 +37,21 @@ export default class ProfileScreen extends React.Component {
                     marginBottom: 5,
                     color: "#fff"
 
-                  }}> {firebase.auth().currentUser.displayName} </Title>
+                  }}> {firebase.auth().currentUser.phoneNumber} </Title>
                   <Caption style={styles.caption}> Feedback er ønsket </Caption>
                 </View>
               </View>
             </View>
-            
+
 
             <View style={styles.userInfoSection}>
               <View style={styles.row}>
                 <Icon name="map-marker-radius" color="#fff" size={20} />
-                <Text style={{ color: "#fff", marginLeft: 20 }}> {firebase.auth().currentUser.email} </Text>
+                <Text style={{ color: "#fff", marginLeft: 20 }}> Copenhagen </Text>
               </View>
               <View style={styles.row}>
-                <Icon name="phone" color="#fff" size={20} />
-                <Text style={{ color: "#fff", marginLeft: 20 }}>{firebase.auth().currentUser.phoneNumber} </Text>
+                <Icon name="account" color="#fff" size={20} />
+                <Text style={{ color: "#fff", marginLeft: 20 }}>{firebase.auth().currentUser.displayName} </Text>
               </View>
               <View style={styles.row}>
                 <Icon name="email" color="#fff" size={20} />
@@ -63,12 +63,22 @@ export default class ProfileScreen extends React.Component {
             <View>
               <TouchableOpacity
 
-                onPress={() => this.props.navigation.navigate('EditProfile')}
+                onPress={() => this.props.navigation.navigate('MyReservations')}
                 style={styles.buttonSection}
                 title="Manage bookings"
 
               >
                 <Text style={styles.text}><Icon name="folder" color="#fff" size={20} />Trykk her for å se dine reservasjoner</Text>
+              </TouchableOpacity>
+
+              <TouchableOpacity
+
+                onPress={() => this.props.navigation.navigate('EditProfile')}
+                style={styles.buttonSection}
+                title="Manage bookings"
+
+              >
+                <Text style={styles.text}><Icon name="folder" color="#fff" size={20} />Trykk her for å endre dine opplysninger</Text>
               </TouchableOpacity>
 
               <TouchableOpacity
@@ -99,7 +109,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     alignItems: 'center',
     marginLeft: 50,
-    marginBottom: 100,
+    marginBottom: 50,
     color: '#2f4f4f'
   },
   borderLine: {

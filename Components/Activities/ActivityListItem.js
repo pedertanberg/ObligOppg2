@@ -13,12 +13,12 @@ import Food from "./Images/food.png"
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    borderWidth: 1,
+    borderWidth: 20,
     margin: 5,
     padding: 5,
     height: 200,
     justifyContent: "center",
-    backgroundColor: "#21164e",
+    backgroundColor: "#1a1a1a",
   },
 
   rect2: {
@@ -45,7 +45,7 @@ export default class ActivityListItem extends React.Component {
       <TouchableOpacity style={styles.container} onPress={this.handlePress}>
         <Image source={{ uri: activity.image }} style={styles.rect2} />
         <Text style={styles.label}>
-          {activity.header} {'\n'}Pr. hour: {activity.price} DKK
+          {activity.header} {'\n'}Total cost of activity: {activity.price} DKK
         </Text>
       </TouchableOpacity>
     );

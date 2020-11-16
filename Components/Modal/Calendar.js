@@ -68,11 +68,13 @@ export default CalendarsScreen;
 const styles = StyleSheet.create({
   calendar: {
     marginBottom: 10,
+    backgroundColor: "#000"
   },
   text: {
     textAlign: 'center',
     padding: 10,
-    backgroundColor: 'lightgrey',
+    backgroundColor: '#000',
+    color: "#fff",
     fontSize: 16,
   },
 });

@@ -139,6 +139,8 @@ export default class ActivityDetails extends React.Component {
         seller: "",
         kunde: firebase.auth().currentUser.email,
         activity: "",
+        timeofCourse: "",
+        location: "",
         image: "https://i.imgur.com/DG8iV3O.jpg"
     };
 
@@ -212,7 +214,7 @@ export default class ActivityDetails extends React.Component {
     handleAddBooking = () => {
         const { navigation } = this.props;
         const id = navigation.getParam('id');
-        const { tid, seller, kunde, activity, image } = this.state;
+        const { tid, seller, kunde, activity, image, timeofCourse, location } = this.state;
 
         try {
             firebase
@@ -220,7 +222,7 @@ export default class ActivityDetails extends React.Component {
                 // Vi sætter aktivitetens ID ind i stien
                 .ref(`/booking`)
                 // Og fjerner data fra den sti
-                .push({ tid, seller, kunde, id, activity, image });
+                .push({ tid, seller, kunde, id, activity, image, timeofCourse, location });
             Alert.alert(`Booking confirmed`);
             // Og går tilbage når det er udført
             navigation.goBack();
@@ -263,6 +265,14 @@ export default class ActivityDetails extends React.Component {
                         <View style={styles.row}>
                             <Text style={styles.label}>Activity</Text>
                             <Text style={styles.value}>{activity.activity}</Text>
+                        </View>
+                        <View style={styles.row}>
+                            <Text style={styles.label}>Hours</Text>
+                            <Text style={styles.value}>{activity.timeofCourse}</Text>
+                        </View>
+                        <View style={styles.row}>
+                            <Text style={styles.label}>Location</Text>
+                            <Text style={styles.value}>{activity.location}</Text>
                         </View>
                         <View style={styles.row}>
                             <Text style={styles.label}>Header</Text>

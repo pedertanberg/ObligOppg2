@@ -11,7 +11,8 @@ import {
   StatusBar,
   ImageBackground,
   TouchableOpacity,
-  TextInput
+  TextInput,
+  KeyboardAvoidingView
 } from "react-native";
 import firebase, { auth } from "firebase";
 import HeaderX from "../Activities/HeaderX";
@@ -34,14 +35,16 @@ export default class AddActivity extends React.Component {
     seller: firebase.auth().currentUser.email,
     city: "",
     availability: "",
+    timeofCourse: "",
+    location: "",
     image: "https://i.imgur.com/DG8iV3O.jpg",
 
-  
+
 
   };
 
- 
-  
+
+
 
 
   handlePriceChange = (text) => this.setState({ price: text });
@@ -56,19 +59,42 @@ export default class AddActivity extends React.Component {
 
   handleAvailabilityChange = (text) => this.setState({ availability: text });
 
+  handleTimeOfCourseChange = (text) => this.setState({ timeofCourse: text });
 
+  handleLocationChange = (text) => this.setState({ location: text });
+
+
+
+
+  handleSubmit = async () => {
+
+
+
+    var user = firebase.auth().currentUser;
+
+    user.updateProfile({
+
+      photoURL: "https://media-exp1.licdn.com/dms/image/C4D03AQH7i_FWmu2SWQ/profile-displayphoto-shrink_200_200/0?e=1609977600&v=beta&t=nNEpmowbG0wdoO4iqtpWTivboVQUsfaRprgezHjWgvQ",
+    }).then(function () {
+      // Update successful.
+      console.log("hei")
+
+    }).catch(function (error) {
+      // An error happened.
+    });
+  }
 
 
   handleSave = () => {
- 
-    const { price, activity, header, description, seller, city, availability, image } = this.state;
+
+    const { price, activity, header, description, seller, city, availability, image, timeofCourse, location } = this.state;
     console.log(seller)
 
     try {
       const reference = firebase
         .database()
         .ref("/activit/")
-        .push({ price, activity, header, description, seller, city, availability, image });
+        .push({ price, activity, header, description, seller, city, availability, image, timeofCourse, location });
       Alert.alert(`Saved`);
       this.setState({
         price: "",
@@ -77,6 +103,8 @@ export default class AddActivity extends React.Component {
         description: "",
         city: "",
         availability: "",
+        timeofCourse: "",
+        location: "",
 
       });
     } catch (error) {
@@ -85,15 +113,17 @@ export default class AddActivity extends React.Component {
   };
 
   render() {
-    
-    const { price, activity, header, description, city, availability } = this.state;
-  
-    
+
+    this.handleSubmit();
+
+    const { price, activity, header, description, city, availability, timeofCourse, location } = this.state;
+
+
 
 
     return (
       <SafeAreaView style={{ flex: 1 }}>
-        <View style={styles.root}>
+        <KeyboardAvoidingView behavior="padding" style={styles.root}>
           <HeaderX
             icon2Family="Feather"
             icon2Name="search"
@@ -118,10 +148,40 @@ export default class AddActivity extends React.Component {
                       <TextInput
                         value={price}
                         onChangeText={this.handlePriceChange}
-                        placeholder="Price"
+                        placeholder="Price for entire activity"
                         placeholderTextColor="rgba(255,255,255,1)"
                         secureTextEntry={false}
                         style={styles.nameInput}
+                      ></TextInput>
+                    </View>
+
+                    <View style={styles.email}>
+                      <FontAwesome5
+                        name="location-arrow"
+                        style={styles.icon5}
+                      ></FontAwesome5>
+                      <TextInput
+                        value={location}
+                        onChangeText={this.handleLocationChange}
+                        placeholder="Location of activity: My place, your place, outside..."
+                        placeholderTextColor="rgba(255,255,255,1)"
+                        secureTextEntry={false}
+                        style={styles.nameInput}
+                      ></TextInput>
+                    </View>
+
+                    <View style={styles.email}>
+                      <FontAwesome5
+                        name="clock"
+                        style={styles.icon6}
+                      ></FontAwesome5>
+                      <TextInput
+                        value={timeofCourse}
+                        onChangeText={this.handleTimeOfCourseChange}
+                        placeholder="Duration of entire activity in hours"
+                        placeholderTextColor="rgba(255,255,255,1)"
+                        secureTextEntry={false}
+                        style={styles.emailInput}
                       ></TextInput>
                     </View>
 
@@ -181,7 +241,7 @@ export default class AddActivity extends React.Component {
                         style={styles.emailInput}
                       ></TextInput>
                     </View>
-                    <View style={styles.city}>
+                    <KeyboardAvoidingView behavior="padding" style={styles.city}>
                       <FontAwesome5
                         name="calendar"
                         style={styles.icon6}
@@ -194,7 +254,7 @@ export default class AddActivity extends React.Component {
                         secureTextEntry={false}
                         style={styles.emailInput}
                       ></TextInput>
-                    </View>
+                    </KeyboardAvoidingView >
                   </View>
 
                   <View style={styles.buttonColumn}>
@@ -213,7 +273,7 @@ export default class AddActivity extends React.Component {
               </ImageBackground>
             </View>
           </View>
-        </View>
+        </KeyboardAvoidingView >
       </SafeAreaView >
     );
   }
@@ -222,7 +282,8 @@ export default class AddActivity extends React.Component {
 const styles = StyleSheet.create({
   root: {
     flex: 1,
-    backgroundColor: "rgb(255,255,255)"
+    backgroundColor: "rgb(255,255,255)",
+
   },
   background: {
     flex: 1
@@ -394,13 +455,14 @@ const styles = StyleSheet.create({
     flex: 1
   },
   button: {
-    height: 55,
+    height: 50,
     backgroundColor: "rgba(247,247,247,0)",
     borderRadius: 5,
     borderColor: "rgba(255,255,255,1)",
     borderWidth: 1,
     justifyContent: "center",
-    marginBottom: 200
+    marginBottom: 200,
+
   },
   text2: {
     width: 66,
@@ -413,7 +475,7 @@ const styles = StyleSheet.create({
     alignSelf: "center"
   },
   buttonColumn: {
-    bottom: "-25%",
+    bottom: "-2%",
     marginLeft: 41,
     marginRight: 41
   }
