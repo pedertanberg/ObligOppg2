@@ -189,7 +189,7 @@ export default class ActivityDetails extends React.Component {
 
     // Vi spørger brugeren om han er sikker
 
-    // Vi sletter den aktuelle bil
+    // Vi sletter den aktuelle aktivitet
     handleDelete = () => {
         const { navigation } = this.props;
         const id = navigation.getParam('id');
@@ -219,9 +219,9 @@ export default class ActivityDetails extends React.Component {
         try {
             firebase
                 .database()
-                // Vi sætter aktivitetens ID ind i stien
+                //Oppretter connection til database
                 .ref(`/booking`)
-                // Og fjerner data fra den sti
+                // Og legger til de parametre fra bookingen
                 .push({ tid, seller, kunde, id, activity, image, timeofCourse, location });
             Alert.alert(`Booking confirmed`);
             // Og går tilbage når det er udført

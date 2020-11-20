@@ -11,6 +11,11 @@ import {
     ImageBackground
 } from 'react-native';
 
+import * as Permissions from 'expo-permissions';
+import { ImagePicker } from 'expo-image-picker';
+
+
+
 import HeaderX from "../Components/Activities/HeaderX";
 
 const styles = StyleSheet.create({
@@ -65,6 +70,70 @@ export default class EditActivity extends React.Component {
     handleChangePassword = displayName => this.setState({ displayName });
     handlephotoURLChange = email => this.setState({ email });
     handlePhoneChange = phoneNumber => this.setState({ phoneNumber });
+
+    uploadImage = async uri => {
+        try {
+            const response = await fetch(uri);
+            const blob = await response.blob();
+            const ref = firebase.storage().ref('avatar').child(uuid.v4());
+            const task = ref.put(blob);
+            return new Promise((resolve, reject) => {
+                task.on('state_changed', () => { }, reject,
+                    () => resolve(task.snapshot.downloadURL));
+            });
+        } catch (err) {
+            console.log('uploadImage error: ' + err.message);
+        }
+    }
+
+
+    onImageUpload = async () => {
+        const { status: cameraRollPerm } = await Permissions.askAsync(
+            Permissions.CAMERA_ROLL
+        );
+        try {
+            // only if user allows permission to camera roll
+            if (cameraRollPerm === 'granted') {
+                let pickerResult = await ImagePicker.launchImageLibraryAsync({
+                    allowsEditing: true,
+                    aspect: [4, 3],
+                });
+                console.log(
+                    'ready to upload... pickerResult json:' + JSON.stringify(pickerResult)
+                );
+
+                var wantedMaxSize = 150;
+                var rawheight = pickerResult.height;
+                var rawwidth = pickerResult.width;
+                var ratio = rawwidth / rawheight;
+                var wantedwidth = wantedMaxSize;
+                var wantedheight = wantedMaxSize / ratio;
+                // check vertical or horizontal
+                if (rawheight > rawwidth) {
+                    wantedwidth = wantedMaxSize * ratio;
+                    wantedheight = wantedMaxSize;
+                }
+                let resizedUri = await new Promise((resolve, reject) => {
+                    ImageEditor.cropImage(pickerResult.uri,
+                        {
+                            offset: { x: 0, y: 0 },
+                            size: { width: pickerResult.width, height: pickerResult.height },
+                            displaySize: { width: wantedwidth, height: wantedheight },
+                            resizeMode: 'contain',
+                        },
+                        (uri) => resolve(uri),
+                        () => reject(),
+                    );
+                });
+                let uploadUrl = await uploadImage(resizedUri);
+                this.setState({ avatar: uploadUrl });
+                await firebaseSvc.updateAvatar(uploadUrl);
+            }
+        } catch (err) {
+            console.log('onImageUpload error:' + err.message);
+            alert('Upload image error:' + err.message);
+        }
+    };
 
 
 
@@ -131,6 +200,11 @@ export default class EditActivity extends React.Component {
                                 style={styles.input}
                             />
                         </View>
+                        <Button
+                            title="Upload Avatar Image"
+                            style={styles.buttonText}
+                            onPress={this.onImageUpload}
+                        />
 
                         <Button title="Press to update user info" onPress={this.handleSubmit}></Button>
 

@@ -24,6 +24,7 @@ import MyListings from "./Components/Listings/MyListings";
 import MyListingDetails from "./Components/Listings/MyListingDetails";
 import EditListing from "./Components/Listings/EditListing";
 import EditProfile from "./Components/EditProfile";
+import Chat from "./Components/chat/Chat";
 
 
 const StackNavigator = createStackNavigator(
@@ -41,7 +42,8 @@ const StackNavigator = createStackNavigator(
     EditListing: { screen: EditListing },
     CalendarScreen: { screen: CalendarScreen },
     EditProfile: { screen: EditProfile },
-    AddActivity: { screen: AddActivity }
+    AddActivity: { screen: AddActivity },
+
 
   },
   { initialRouteKey: "Activity List" }
@@ -102,6 +104,19 @@ const MyDrawerNavigator = createDrawerNavigator({
     screen: ProfileScreen,
     navigationOptions: {
       title: "See your profile",
+      drawerIcon: () => (
+        <IoniconsIcon
+          name="md-albums"
+          style={styles.icon2}
+        ></IoniconsIcon>
+      )
+    }
+  },
+
+  Chat: {
+    screen: Chat,
+    navigationOptions: {
+      title: "Chat",
       drawerIcon: () => (
         <IoniconsIcon
           name="md-albums"

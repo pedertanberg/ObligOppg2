@@ -16,7 +16,7 @@ export default class HeaderX extends React.Component {
     });
   }
   render() {
-    const navigation = this.props // <-- add this line
+
 
     return (
       <View style={[styles.container]}>
@@ -25,6 +25,7 @@ export default class HeaderX extends React.Component {
             <FeatherIcon
               name="plus"
               style={styles.icon}
+              onPress={() => this.props.navigation.navigate("AddActivity")}
 
 
 

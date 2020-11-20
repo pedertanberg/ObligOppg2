@@ -1,12 +1,13 @@
 import * as React from 'react';
-import { View, Text, Platform, Image, ImageBackground, TouchableHighlight, FlatList, StyleSheet, Modal, Button, Alert } from 'react-native';
+import { View, Text, Platform, Image, ImageBackground, TouchableHighlight, FlatList, Linking, StyleSheet, Modal, Button, Alert } from 'react-native';
 import firebase from 'firebase';
 import { YellowBox } from 'react-native';
 import _ from 'lodash';
 import HeaderX from "./Activities/HeaderX";
 import IoniconsIcon from "react-native-vector-icons/Ionicons";
 import { ScrollView } from 'react-native-gesture-handler';
-import SellerProfile from "./SellerProfile"
+import SellerProfile from "./SellerProfile";
+import { SocialIcon } from 'react-native-elements';
 
 
 YellowBox.ignoreWarnings(['Setting a timer']);
@@ -101,7 +102,7 @@ const styles = StyleSheet.create({
 });
 
 export default class MyReservationsDetails extends React.Component {
-  state = { activity: null, modalVisible: false };
+  state = { activity: null, modalVisible: false, postContent: "Sjekk ut mitt nyeste kjøp", facebookShareURL: "https://i.imgur.com/DG8iV3O.jpg" };
 
   componentDidMount() {
     // Vi udlæser ID fra navgation parametre og loader bilen når komponenten starter
@@ -150,7 +151,8 @@ export default class MyReservationsDetails extends React.Component {
       ]);
     } else {
       if (confirm('Er du sikker på du vil slette denne aktivitet?')) {
-        this.handleDelete()
+        this.handleDelete1();
+        this.handleDelete2();
       }
     }
   };
@@ -158,7 +160,7 @@ export default class MyReservationsDetails extends React.Component {
   // Vi spørger brugeren om han er sikker
 
   // Vi sletter den aktuelle bil
-  handleDelete = () => {
+  handleDelete1 = () => {
     const { navigation } = this.props;
     const id = navigation.getParam('id');
     try {
@@ -175,11 +177,53 @@ export default class MyReservationsDetails extends React.Component {
     }
 
   };
+  handleDelete2 = () => {
+    const { navigation } = this.props;
+    const id = navigation.getParam('id');
+    try {
+      firebase
+        .database()
+        // Vi sætter aktivitetens ID ind i stien
+        .ref(`/booking/${id}/activity`)
+        // Og fjerner data fra den sti
+        .remove();
+      // Og går tilbage når det er udført
+      navigation.goBack();
+    } catch (error) {
+      Alert.alert(error.message);
+    }
+
+  };
+
+  deleteAll() {
+    this.handleDelete1();
+    this.handleDelete2();
+  }
+
+  postOnFacebook = () => {
+    let facebookParameters = [this.state.activity];
+    if (this.state.facebookShareURL)
+      facebookParameters.push('u=' + encodeURI(this.state.facebookShareURL));
+    if (this.state.postContent)
+      facebookParameters.push('quote=' + encodeURI(this.state.postContent));
+    const url =
+      'https://www.facebook.com/sharer/sharer.php?'
+      + facebookParameters.join('&');
+
+    Linking.openURL(url)
+      .then((data) => {
+        alert('Facebook Opened');
+      })
+      .catch(() => {
+        alert('Something went wrong');
+      });
+  };
 
   render() {
     const { activity } = this.state;
     const { booking } = this.state;
     const { modalVisible } = this.state;
+
 
     if (!booking) {
       return <Text>No data</Text>;
@@ -254,9 +298,16 @@ export default class MyReservationsDetails extends React.Component {
                 name="ios-card"
                 style={styles.icon2}
               ></IoniconsIcon>
+
               <Text style={styles.label}>Price</Text>
               <Text style={styles.value}>{activity.price}</Text>
             </View>
+            <SocialIcon
+              title='share'
+              button
+              type='facebook'
+              onPress={this.postOnFacebook}
+            />
             <Button title="Edit" onPress={this.handleEdit} style={{ ...styles.openButton, backgroundColor: "" }} />
             <Button title="Delete" onPress={this.confirmDelete} />
             <View style={styles.centeredView}>
