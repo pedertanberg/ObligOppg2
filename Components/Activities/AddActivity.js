@@ -16,6 +16,7 @@ import {
 } from "react-native";
 import firebase, { auth } from "firebase";
 import HeaderX from "../Activities/HeaderX";
+import {TagSelect} from 'react-native-tag-select';
 
 
 import IoniconsIcon from "react-native-vector-icons/Ionicons";
@@ -29,7 +30,6 @@ import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
 export default class AddActivity extends React.Component {
   state = {
     price: "",
-    activity: "",
     header: "",
     description: "",
     seller: firebase.auth().currentUser.email,
@@ -37,6 +37,7 @@ export default class AddActivity extends React.Component {
     availability: "",
     timeofCourse: "",
     location: "",
+    activity: [],
     image: "https://i.imgur.com/DG8iV3O.jpg",
 
 
@@ -49,7 +50,7 @@ export default class AddActivity extends React.Component {
 
   handlePriceChange = (text) => this.setState({ price: text });
 
-  handleActivityChange = (text) => this.setState({ activity: text });
+  //handleActivityChange = (text) => this.setState({ activity: text });
 
   handleHeaderChange = (text) => this.setState({ header: text });
 
@@ -87,8 +88,16 @@ export default class AddActivity extends React.Component {
 
   handleSave = () => {
 
-    const { price, activity, header, description, seller, city, availability, image, timeofCourse, location } = this.state;
+    const { price, header, description, seller, city, availability, image, timeofCourse, location } = this.state;
     console.log(seller)
+
+    let selectedTags = this.tag.itemsSelected;
+    let activity = []
+    for (let t in selectedTags) {
+        activity.push(selectedTags[t]["label"])
+    }
+
+    this.setState({activity: activity})
 
     try {
       const reference = firebase
@@ -105,6 +114,7 @@ export default class AddActivity extends React.Component {
         availability: "",
         timeofCourse: "",
         location: "",
+        
 
       });
     } catch (error) {
@@ -116,9 +126,16 @@ export default class AddActivity extends React.Component {
 
     this.handleSubmit();
 
-    const { price, activity, header, description, city, availability, timeofCourse, location } = this.state;
+    const { price, header, description, city, availability, timeofCourse, location } = this.state;
 
-
+    const activity = [
+      {id: 1, label: 'Sports'},
+      {id: 2, label: 'Food'},
+      {id: 3, label: 'Academics'},
+      {id: 4, label: 'Language'},
+      {id: 5, label: 'Action'},
+      
+  ];
 
 
     return (
@@ -135,7 +152,7 @@ export default class AddActivity extends React.Component {
               <ImageBackground
                 style={styles.rect2}
                 imageStyle={styles.rect2_imageStyle}
-                source={require("../Login//luke-chesser-3rWagdKBF7U-unsplash.jpg")}
+                source={require("../Images/bg.jpg")}
               >
                 <Text style={styles.text3}>Create Activity</Text>
                 <ScrollView style={styles.form}>
@@ -186,20 +203,7 @@ export default class AddActivity extends React.Component {
                     </View>
 
 
-                    <View style={styles.email}>
-                      <FontAwesome5
-                        name="volleyball-ball"
-                        style={styles.icon6}
-                      ></FontAwesome5>
-                      <TextInput
-                        value={activity}
-                        onChangeText={this.handleActivityChange}
-                        placeholder="Category"
-                        placeholderTextColor="rgba(255,255,255,1)"
-                        secureTextEntry={false}
-                        style={styles.emailInput}
-                      ></TextInput>
-                    </View>
+              
                     <View style={styles.description}>
                       <EntypoIcon
                         name="text"
@@ -256,6 +260,15 @@ export default class AddActivity extends React.Component {
                       ></TextInput>
                     </KeyboardAvoidingView >
                   </View>
+                  <Text style={{color:"white",paddingTop:15, fontSize:20}}> Category:{"\n"} </Text>
+                  <TagSelect
+                            theme={'success'}
+                            style={styles.input}
+                            data={activity}
+                            ref={(tag) => {
+                                this.tag = tag;
+                            }}
+                        />
 
                   <View style={styles.buttonColumn}>
                     <TouchableOpacity
@@ -269,6 +282,8 @@ export default class AddActivity extends React.Component {
                     </TouchableOpacity>
                     <Text style={styles.text4}>Terms &amp; Conditions</Text>
                   </View>
+
+
                 </ScrollView>
               </ImageBackground>
             </View>

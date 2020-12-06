@@ -1,5 +1,5 @@
 import * as React from "react";
-import { View, FlatList, StyleSheet, ImageBackground, SafeAreaView } from "react-native";
+import { View, FlatList, StyleSheet, ImageBackground, SafeAreaView, TouchableOpacity, Text } from "react-native";
 import firebase from "firebase";
 import HeaderX from "./HeaderX";
 
@@ -19,6 +19,7 @@ const styles = StyleSheet.create({
     marginRight: 28
   },
   card: {
+    backgroundColor: "rgba(0,0,0,0)",
   },
 
   headerX: {
@@ -32,7 +33,59 @@ const styles = StyleSheet.create({
     shadowColor: "rgba(0,0,0,1)",
     shadowOpacity: 0.1,
     shadowRadius: 5
-  }
+  },
+  tabs: {
+    height: 80,
+    backgroundColor: "rgba(0,0,0,0)",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-around",
+    elevation: 0,
+    shadowOffset: {
+      height: 0,
+      width: 0
+    },
+    shadowColor: "rgba(0,0,0,1)",
+    shadowRadius: 0
+  },
+  following: {
+    width: 100,
+    height: 38,
+    backgroundColor: "rgba(247,247,247,0)",
+    alignSelf: "center",
+    borderRadius: 5,
+    borderColor: "rgba(255,255,255,1)",
+    borderWidth: 1,
+    justifyContent: "center"
+  },
+  text: {
+    color: "rgba(255,255,255,1)",
+    alignSelf: "center"
+  },
+  popular: {
+    width: 140,
+    height: 38,
+    backgroundColor: "rgba(247,247,247,0)",
+    alignSelf: "center",
+    borderRadius: 100
+  },
+  friends: {
+    color: "rgba(255,255,255,1)",
+    marginTop: 9,
+    marginLeft: 26
+  },
+  button: {
+    width: 100,
+    height: 38,
+    backgroundColor: "rgba(247,247,247,0)",
+    alignSelf: "center",
+    borderRadius: 100,
+    justifyContent: "center"
+  },
+  text3: {
+    color: "rgba(255,255,255,1)",
+    alignSelf: "center"
+  },
 })
 
 export default class ActivityList extends React.Component {
@@ -85,15 +138,29 @@ export default class ActivityList extends React.Component {
       <ImageBackground
         style={styles.rect2}
         imageStyle={styles.rect2_imageStyle}
-        source={require("../Login//luke-chesser-3rWagdKBF7U-unsplash.jpg")}
+        source={require("../Images/bg.jpg")}
       >
 
-        <View style={{ height: "90%" }}>
+        <View style={{ height: "80%" }}>
           <HeaderX
+          navigation={this.props.navigation}
             icon2Family="Feather"
             icon2Name="search"
             style={styles.headerX}
           ></HeaderX>
+
+        <View style={styles.tabs}>
+            <TouchableOpacity style={styles.following}>
+              <Text style={styles.text} onPress={() => this.props.navigation.navigate("ActivityList")} >Activity List</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.popular}>
+              <Text style={styles.friends} onPress={() => this.props.navigation.navigate("MyReservations")} >My Reservations</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.button}>
+              <Text style={styles.text3} onPress={() => this.props.navigation.navigate("MyListings")}>My Listings</Text>
+            </TouchableOpacity>
+          </View>
+
           <SafeAreaView>
             <FlatList style={styles.card}
               data={ActivityArray}

@@ -2,8 +2,11 @@ import React, { Component } from "react";
 import { StyleSheet, View, Text, Switch, Image, SafeAreaView, ScrollView } from "react-native";
 import Svg, { Ellipse } from "react-native-svg";
 import IoniconsIcon from "react-native-vector-icons/Ionicons";
-import HeaderX from "../Components/Activities/HeaderX";
+import HeaderX from "../Activities/HeaderX";
 import { Avatar, Accessory, ListItem, Icon } from 'react-native-elements';
+import { Button } from 'react-native-elements';
+import Icon2 from 'react-native-vector-icons/FontAwesome';
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 function Index(props) {
   return (
@@ -41,49 +44,22 @@ function Index(props) {
               <Text style={styles.userTitle}>Sports and Music</Text>
               <Text style={styles.userBio}>Hey, my name is John Skjeldrum, and i hope you are ready for my courses </Text>
               <View style={styles.subSettings}>
+                <TouchableOpacity>
+              <Button 
+              icon={
+                <Icon2
+                  name="comment"
+                  size={15}
+                  color="white"
+                />
+              }
+            title="Chat"  
+            type="outline"  
+            onPress={() => this.props.navigation.navigate("Chat")} 
+            style={styles.button} />
+            </TouchableOpacity>
 
-                <View style={styles.sellerProfileColumnFiller}></View>
-                <View style={styles.changeConnections}>
-                  <Text style={styles.text11}>
-                    Offered courses
-                                    </Text>
-                  <IoniconsIcon
-                    name="ios-arrow-forward"
-                    style={styles.icon2}
-                  ></IoniconsIcon>
-                </View>
-
-
-                <View style={styles.sellerProfileColumnFiller}></View>
-                <View style={styles.changeConnections}>
-                  <Text style={styles.text11}>
-                    Book an hour
-                                    </Text>
-                  <IoniconsIcon
-                    name="ios-arrow-forward"
-                    style={styles.icon2}
-                  ></IoniconsIcon>
-                </View>
-
-
-                <View style={styles.sellerProfileColumnFiller}></View>
-                <View style={styles.changeConnections}>
-                  <Text style={styles.text12}>User reviews</Text>
-                  <IoniconsIcon
-                    name="ios-arrow-forward"
-                    style={styles.icon3}
-                  ></IoniconsIcon>
-                </View>
-
-                <View style={styles.sellerProfileColumnFiller}></View>
-                <View style={styles.changeConnections}>
-                  <Text style={styles.text12}>More about the seller</Text>
-                  <IoniconsIcon
-                    name="ios-arrow-forward"
-                    style={styles.icon3}
-                  ></IoniconsIcon>
-                </View>
-
+               
               </View>
             </View>
             <View style={styles.sub2}>

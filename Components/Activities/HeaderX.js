@@ -27,8 +27,6 @@ export default class HeaderX extends React.Component {
               style={styles.icon}
               onPress={() => this.props.navigation.navigate("AddActivity")}
 
-
-
             ></FeatherIcon>
             <Text style={styles.iRate}>ActivIT</Text>
           </View>

@@ -20,7 +20,7 @@ export default class ProfileScreen extends React.Component {
     return (
 
       <ImageBackground style={styles.background}
-        source={require('./Login/luke-chesser-3rWagdKBF7U-unsplash.jpg')}>
+      source={require("../Images/bg.jpg")}>
 
         <ScrollView>
           <SafeAreaView style={styles.container}>

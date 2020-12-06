@@ -6,12 +6,9 @@ import { YellowBox } from 'react-native';
 import _ from 'lodash';
 import HeaderX from "./HeaderX";
 import FontAwesome5 from "react-native-vector-icons/FontAwesome5";
-import SellerProfile from "../SellerProfile";
+import SellerProfile from "../Profiles/SellerProfile";
 import { ScrollView } from 'react-native-gesture-handler';
 import Calendar from "../Modal/Calendar";
-import onDayPress from "../Modal/Calendar"
-
-
 
 
 YellowBox.ignoreWarnings(['Setting a timer']);
@@ -25,6 +22,17 @@ const styles = StyleSheet.create({
     rect2: {
         flex: 1
     },
+    calendar: {
+        marginBottom: 10,
+        backgroundColor: "#000"
+      },
+      text: {
+        textAlign: 'center',
+        padding: 10,
+        backgroundColor: '#000',
+        color: "#fff",
+        fontSize: 16,
+      },
     rect2_imageStyle: {},
     progressBar: {
         height: 40,
@@ -42,6 +50,8 @@ const styles = StyleSheet.create({
         height: 180
     },
     button: {
+        borderColor:"#fff",
+        marginTop:15
 
     },
     container: { flex: 1, justifyContent: 'flex-start', backgroundColor: "rgb(27,29,37)" },
@@ -125,11 +135,6 @@ const styles = StyleSheet.create({
 
 
 
-
-
-
-const testIDs = require('../Modal/testIDs');
-
 export default class ActivityDetails extends React.Component {
 
     state = {
@@ -141,13 +146,18 @@ export default class ActivityDetails extends React.Component {
         activity: "",
         timeofCourse: "",
         location: "",
-        image: "https://i.imgur.com/DG8iV3O.jpg"
+        image: "https://i.imgur.com/DG8iV3O.jpg",
+        rating: ""
+        
+        
     };
 
     componentDidMount() {
         // Vi udlæser ID fra navgation parametre og loader bilen når komponenten starter
         const id = this.props.navigation.getParam('id');
         this.LoadActivity(id);
+     
+        
     }
 
 
@@ -214,7 +224,7 @@ export default class ActivityDetails extends React.Component {
     handleAddBooking = () => {
         const { navigation } = this.props;
         const id = navigation.getParam('id');
-        const { tid, seller, kunde, activity, image, timeofCourse, location } = this.state;
+        const { tid, seller, kunde, activity, image, timeofCourse, location, rating } = this.state;
 
         try {
             firebase
@@ -222,7 +232,7 @@ export default class ActivityDetails extends React.Component {
                 //Oppretter connection til database
                 .ref(`/booking`)
                 // Og legger til de parametre fra bookingen
-                .push({ tid, seller, kunde, id, activity, image, timeofCourse, location });
+                .push({ tid, seller, kunde, id, activity, image, timeofCourse, location, rating });
             Alert.alert(`Booking confirmed`);
             // Og går tilbage når det er udført
             navigation.goBack();
@@ -237,6 +247,7 @@ export default class ActivityDetails extends React.Component {
     render() {
         const { activity, tid } = this.state;
         const { modalVisible } = this.state;
+      
 
         if (!activity) {
             return <Text>No data</Text>;
@@ -251,7 +262,7 @@ export default class ActivityDetails extends React.Component {
                 <ImageBackground
                     style={styles.rect2}
                     imageStyle={styles.rect2_imageStyle}
-                    source={require("../Login//luke-chesser-3rWagdKBF7U-unsplash.jpg")}
+                    source={require("../Images/bg.jpg")}
                 >
                     <ScrollView>
 
@@ -287,7 +298,7 @@ export default class ActivityDetails extends React.Component {
                             <Text style={styles.value}>{activity.seller}</Text>
                         </View>
                         <View style={styles.row}>
-                            <Calendar ></Calendar>
+                            <Calendar></Calendar>
                         </View>
                         <View style={styles.city}>
                             <FontAwesome5
@@ -304,7 +315,7 @@ export default class ActivityDetails extends React.Component {
                             ></TextInput>
 
                         </View>
-                        <Button title="Book" color="#000" onPress={this.handleAddBooking} style={styles.button} />
+                        <Button title="Book" color="#fff" onPress={this.handleAddBooking} style={styles.button} />
                         <View style={styles.centeredView}>
                             <Modal
                                 animationType="slide"

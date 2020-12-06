@@ -7,7 +7,7 @@ import _ from 'lodash';
 import HeaderX from "../Activities/HeaderX";
 import IoniconsIcon from "react-native-vector-icons/Ionicons";
 import { ScrollView } from 'react-native-gesture-handler';
-import SellerProfile from "../SellerProfile";
+
 
 
 
@@ -187,7 +187,7 @@ export default class MyReservationsDetails extends React.Component {
         <ImageBackground
           style={styles.rect2}
           imageStyle={styles.rect2_imageStyle}
-          source={require("../Login/luke-chesser-3rWagdKBF7U-unsplash.jpg")}
+          source={require("../Images/bg.jpg")}
         >
           <ScrollView>
             <View style={styles.row}>

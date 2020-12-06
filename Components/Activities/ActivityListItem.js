@@ -13,12 +13,12 @@ import Food from "./Images/food.png"
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    borderWidth: 20,
+   // borderWidth: 20,
     margin: 5,
     padding: 5,
     height: 200,
     justifyContent: "center",
-    backgroundColor: "#1a1a1a",
+    backgroundColor: "rgba(0,0,0,0)",
   },
 
   rect2: {

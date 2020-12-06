@@ -81,7 +81,7 @@ export default class GoogleLogin extends React.Component {
                     <ImageBackground
                         style={styles.rect}
                         imageStyle={styles.rect_imageStyle}
-                        source={require('./luke-chesser-3rWagdKBF7U-unsplash.jpg')}
+                        source={require("../Images/bg.jpg")}
                     >
 
 

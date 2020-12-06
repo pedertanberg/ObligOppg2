@@ -2,29 +2,33 @@ import firebase from "firebase";
 import * as React from "react";
 import { Text, View, StyleSheet, Button } from "react-native";
 import { createAppContainer } from "react-navigation";
-import { createBottomTabNavigator } from "react-navigation-tabs";
 import { createStackNavigator } from "react-navigation-stack";
 import ActivityList from "./Components/Activities/ActivityList";
 import AddActivity from "./Components/Activities/AddActivity";
 import ActivityDetails from "./Components/Activities/ActivityDetails";
 import { AntDesign, FontAwesome } from "@expo/vector-icons";
 import EditActivity from "./Components/Activities/EditActivity";
-import ProfileScreen from "./Components/ProfileScreen";
-import Profile from "./Components/ProfileScreen";
+import ProfileScreen from "./Components/Profiles/ProfileScreen";
+import Profile from "./Components/Profiles/ProfileScreen";
 import Timeline from "./Components/Activities/Timeline";
 import { createDrawerNavigator, DrawerItems } from "react-navigation-drawer";
 import CalendarScreen from "./Components/Modal/Calendar";
 import HomePage from "./Components/HomePage";
-import SellerProfile from "./Components/SellerProfile"
-import MyReservations from "./Components/MyReservations";
-import MyReservationsDetails from "./Components/MyReservationDetails";
+import SellerProfile from "./Components/Profiles/SellerProfile"
+import MyReservations from "./Components/Reservations/MyReservations";
+import MyReservationsDetails from "./Components/Reservations/MyReservationDetails";
 import IoniconsIcon from "react-native-vector-icons/Ionicons";
-import EditReservation from "./Components/EditReservation";
+import EditReservation from "./Components/Reservations/EditReservation";
 import MyListings from "./Components/Listings/MyListings";
 import MyListingDetails from "./Components/Listings/MyListingDetails";
 import EditListing from "./Components/Listings/EditListing";
-import EditProfile from "./Components/EditProfile";
+import EditProfile from "./Components/Profiles/EditProfile";
 import Chat from "./Components/chat/Chat";
+import InviteFriend from "./Components/Gamification/InviteFriend";
+import Offers from "./Components/Gamification/offers";
+import Camera from "./Components/Profiles/Camera"
+
+
 
 
 const StackNavigator = createStackNavigator(
@@ -43,13 +47,21 @@ const StackNavigator = createStackNavigator(
     CalendarScreen: { screen: CalendarScreen },
     EditProfile: { screen: EditProfile },
     AddActivity: { screen: AddActivity },
+    InviteFriend: {screen: InviteFriend},
+    Offers: {screen:Offers},
+    Camera: {screen:Camera},
+    
+    
 
 
   },
-  { initialRouteKey: "Activity List" }
+  { initialRouteKey: "Activity List", 
+   
+  }
 );
 
 const MyDrawerNavigator = createDrawerNavigator({
+  
   Main: {
     screen: StackNavigator,
     navigationOptions: {
@@ -61,6 +73,7 @@ const MyDrawerNavigator = createDrawerNavigator({
         ></IoniconsIcon>
       )
     }
+  
   },
 
   AddActivity: {
@@ -75,7 +88,7 @@ const MyDrawerNavigator = createDrawerNavigator({
       )
     }
   },
-  MyReservations: {
+  /* MyReservations: {
     screen: MyReservations,
     navigationOptions: {
       title: "Handle your bookings",
@@ -98,7 +111,7 @@ const MyDrawerNavigator = createDrawerNavigator({
         ></IoniconsIcon>
       )
     }
-  },
+  }, */
 
   ProfileScreen: {
     screen: ProfileScreen,
@@ -106,7 +119,7 @@ const MyDrawerNavigator = createDrawerNavigator({
       title: "See your profile",
       drawerIcon: () => (
         <IoniconsIcon
-          name="md-albums"
+          name="ios-person"
           style={styles.icon2}
         ></IoniconsIcon>
       )
@@ -119,7 +132,45 @@ const MyDrawerNavigator = createDrawerNavigator({
       title: "Chat",
       drawerIcon: () => (
         <IoniconsIcon
-          name="md-albums"
+          name="ios-chatbubbles"
+          style={styles.icon2}
+        ></IoniconsIcon>
+      )
+    }
+  },
+
+  InviteFriend: {
+    screen: InviteFriend,
+    navigationOptions: {
+      title: "Invite a Friend",
+      drawerIcon: () => (
+        <IoniconsIcon
+          name="ios-send"
+          style={styles.icon2}
+        ></IoniconsIcon>
+      )
+    }
+  },
+
+  Offers: {
+    screen: Offers,
+    navigationOptions: {
+      title: "Vouchers",
+      drawerIcon: () => (
+        <IoniconsIcon
+          name="ios-pricetag"
+          style={styles.icon2}
+        ></IoniconsIcon>
+      )
+    }
+  },
+  Camera: {
+    screen: Camera,
+    navigationOptions: {
+      title: "Camera",
+      drawerIcon: () => (
+        <IoniconsIcon
+          name="ios-pricetag"
           style={styles.icon2}
         ></IoniconsIcon>
       )
@@ -127,11 +178,12 @@ const MyDrawerNavigator = createDrawerNavigator({
   },
 
 
-
-
-
-
 })
+
+
+
+
+
 const AppNav = createAppContainer(MyDrawerNavigator);
 
 

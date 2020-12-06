@@ -13,10 +13,11 @@ import {
 
 import * as Permissions from 'expo-permissions';
 import { ImagePicker } from 'expo-image-picker';
+import Camera from "./Camera"
 
 
 
-import HeaderX from "../Components/Activities/HeaderX";
+import HeaderX from "../Activities/HeaderX";
 
 const styles = StyleSheet.create({
     rect2: {
@@ -173,7 +174,7 @@ export default class EditActivity extends React.Component {
                 <ImageBackground
                     style={styles.rect2}
                     imageStyle={styles.rect2_imageStyle}
-                    source={require("./Login/luke-chesser-3rWagdKBF7U-unsplash.jpg")}
+                    source={require("../Images/bg.jpg")}
                 >
                     <ScrollView>
                         <View style={styles.row}>
@@ -205,6 +206,7 @@ export default class EditActivity extends React.Component {
                             style={styles.buttonText}
                             onPress={this.onImageUpload}
                         />
+
 
                         <Button title="Press to update user info" onPress={this.handleSubmit}></Button>
 

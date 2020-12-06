@@ -46,7 +46,7 @@ export default class Example extends React.Component {
                 <ImageBackground
                     style={styles.rect2}
                     imageStyle={styles.rect2_imageStyle}
-                    source={{ uri: "https://media.tenor.com/images/1ad00af6d2536d3d629beb673ba345ad/tenor.gif" }}
+                    source={require("../Images/bg.jpg")}
                 >
                     <GiftedChat
                         messages={this.state.messages}

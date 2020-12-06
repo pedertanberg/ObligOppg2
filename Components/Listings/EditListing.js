@@ -120,7 +120,7 @@ export default class EditListing extends React.Component {
                 <ImageBackground
                     style={styles.rect2}
                     imageStyle={styles.rect2_imageStyle}
-                    source={require("../Login//luke-chesser-3rWagdKBF7U-unsplash.jpg")}
+                    source={require("../Images/bg.jpg")}
                 >
                     <ScrollView>
                         <View style={styles.row}>

@@ -1,14 +1,15 @@
 import * as React from 'react';
-import { View, Text, Platform, Image, ImageBackground, TouchableHighlight, FlatList, Linking, StyleSheet, Modal, Button, Alert } from 'react-native';
+import { View, Text, Platform, Image, ImageBackground, TouchableHighlight, FlatList, Linking, StyleSheet, Modal, Alert } from 'react-native';
 import firebase from 'firebase';
 import { YellowBox } from 'react-native';
 import _ from 'lodash';
-import HeaderX from "./Activities/HeaderX";
+import HeaderX from "../Activities/HeaderX";
 import IoniconsIcon from "react-native-vector-icons/Ionicons";
 import { ScrollView } from 'react-native-gesture-handler';
-import SellerProfile from "./SellerProfile";
+import SellerProfile from "../Profiles/SellerProfile";
 import { SocialIcon } from 'react-native-elements';
-
+import { Button } from 'react-native-elements';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 YellowBox.ignoreWarnings(['Setting a timer']);
 const _console = _.clone(console);
@@ -29,8 +30,7 @@ const styles = StyleSheet.create({
     marginRight: 28
   },
   button: {
-    color: "white",
-    backgroundColor: "white"
+    padding:15,
   },
   container: { flex: 1, justifyContent: 'flex-start', backgroundColor: "rgb(27,29,37)" },
   row: {
@@ -99,10 +99,11 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 180
   },
+ 
 });
 
 export default class MyReservationsDetails extends React.Component {
-  state = { activity: null, modalVisible: false, postContent: "Sjekk ut mitt nyeste kjøp", facebookShareURL: "https://i.imgur.com/DG8iV3O.jpg" };
+  state = { activity: null, modalVisible: false, postContent: "Sjekk ut mitt nyeste kjøp, gjort på activit", facebookShareURL: "https://i.imgur.com/DG8iV3O.jpg" };
 
   componentDidMount() {
     // Vi udlæser ID fra navgation parametre og loader bilen når komponenten starter
@@ -238,7 +239,7 @@ export default class MyReservationsDetails extends React.Component {
         <ImageBackground
           style={styles.rect2}
           imageStyle={styles.rect2_imageStyle}
-          source={require("./Login/luke-chesser-3rWagdKBF7U-unsplash.jpg")}
+          source={require("../Images/bg.jpg")}
         >
           <ScrollView>
             <View style={styles.row}>
@@ -249,7 +250,7 @@ export default class MyReservationsDetails extends React.Component {
                 name="ios-eye"
                 style={styles.icon2}
               ></IoniconsIcon>
-              <Text style={styles.label}>Aktivitets ID</Text>
+              <Text style={styles.label}>Aktivitens ID</Text>
               <Text style={styles.value}>{booking.id}</Text>
             </View>
             <View style={styles.row}>
@@ -259,6 +260,22 @@ export default class MyReservationsDetails extends React.Component {
               ></IoniconsIcon>
               <Text style={styles.label}>Kunde</Text>
               <Text style={styles.value}>{booking.kunde}</Text>
+            </View>
+            <View style={styles.row}>
+              <IoniconsIcon
+                name="ios-person"
+                style={styles.icon2}
+              ></IoniconsIcon>
+              <Text style={styles.label}>Duration</Text>
+              <Text style={styles.value}>{booking.timeofCourse} hours</Text>
+            </View>
+            <View style={styles.row}>
+              <IoniconsIcon
+                name="ios-person"
+                style={styles.icon2}
+              ></IoniconsIcon>
+              <Text style={styles.label}>Location</Text>
+              <Text style={styles.value}>{booking.location}</Text>
             </View>
             <View style={styles.row}>
               <IoniconsIcon
@@ -302,14 +319,61 @@ export default class MyReservationsDetails extends React.Component {
               <Text style={styles.label}>Price</Text>
               <Text style={styles.value}>{activity.price}</Text>
             </View>
+            <View style={styles.row}>
+              <IoniconsIcon
+                name="ios-star"
+                style={styles.icon2}
+              ></IoniconsIcon>
+
+              <Text style={styles.label}>Your Rating</Text>
+              <Text style={styles.value}>{booking.rating}</Text>
+            </View>
             <SocialIcon
               title='share'
               button
               type='facebook'
               onPress={this.postOnFacebook}
             />
-            <Button title="Edit" onPress={this.handleEdit} style={{ ...styles.openButton, backgroundColor: "" }} />
-            <Button title="Delete" onPress={this.confirmDelete} />
+            <Button 
+              icon={
+                <Icon
+                  name="edit"
+                  size={15}
+                  color="white"
+                />
+              }
+                title="Edit/Rate" 
+                type="outline"
+                onPress={this.handleEdit} 
+                style={styles.button} />
+
+            <Button 
+            icon={
+              <Icon
+                name="trash"
+                size={15}
+                color="white"
+              />
+            }
+            title="Cancel" 
+            type="outline"  
+            onPress={this.confirmDelete}
+            style={styles.button}/>
+
+
+            <Button 
+              icon={
+                <Icon
+                  name="comment"
+                  size={15}
+                  color="white"
+                />
+              }
+            title="Chat"  
+            type="outline"  
+            onPress={() => this.props.navigation.navigate("Chat")} 
+            style={styles.button} />
+
             <View style={styles.centeredView}>
               <Modal
                 animationType="slide"

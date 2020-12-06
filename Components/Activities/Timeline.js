@@ -19,7 +19,7 @@ function Timeline(props) {
       <ImageBackground
       style={styles.rect2}
       imageStyle={styles.rect2_imageStyle}
-      source={require("../Login//luke-chesser-3rWagdKBF7U-unsplash.jpg")}
+      source={require("../Images/bg.jpg")}
     >
       <View style={styles.body}>
         <View style={styles.headline}>
